@@ -45,8 +45,7 @@ htmlcov/
 
 # uv
 .uv/
-uv.lock      # decyzja: commit uv.lock — chcemy deterministyczne buildy
-!uv.lock     # un-ignore (override poprzedniej linii)
+# uv.lock — commit dla deterministycznych buildów (NIE ignoruj)
 
 # OS
 Thumbs.db
