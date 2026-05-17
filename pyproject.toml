@@ -2,7 +2,7 @@
 name = "klastergoz-portal"
 version = "0.1.0"
 description = "Portal marketingowy klastergoz.pl — Wagtail CMS"
-requires-python = ">=3.12"
+requires-python = ">=3.13,<3.14"
 dependencies = [
     "wagtail>=6.3,<6.4",
     "django>=5.1,<5.2",
