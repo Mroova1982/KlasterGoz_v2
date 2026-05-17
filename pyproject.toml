@@ -31,7 +31,7 @@ package = false                # to nie jest publikowany pakiet
 
 [tool.ruff]
 line-length = 100
-target-version = "py312"
+target-version = "py313"
 extend-exclude = ["migrations", "static", "media"]
 
 [tool.ruff.lint]
@@ -40,7 +40,7 @@ ignore = ["E501"]               # długość linii — Black zarządza
 
 [tool.black]
 line-length = 100
-target-version = ["py312"]
+target-version = ["py313"]
 extend-exclude = "migrations|static|media"
 
 [tool.pytest.ini_options]
