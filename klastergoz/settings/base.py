@@ -15,9 +15,12 @@ INSTALLED_APPS = [
     # local apps
     "apps.shared",
     "apps.home",
+    "apps.pages",
     # wagtail
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
+    "wagtail.contrib.settings",
+    "wagtail.contrib.sitemaps",
     "wagtail.embeds",
     "wagtail.sites",
     "wagtail.users",
@@ -35,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.sitemaps",
     "django.contrib.staticfiles",
 ]
 
@@ -63,6 +67,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "wagtail.contrib.settings.context_processors.settings",
             ],
         },
     },
@@ -127,3 +132,9 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 WAGTAILDOCS_EXTENSIONS = ["pdf", "docx", "xlsx", "csv", "txt"]
+
+# Obrazy: pozwól na upload SVG (logo, ikony) obok rastrów.
+WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]
+
+# Czy serwować robots.txt z pełnym indeksowaniem. Prod=True, staging nadpisuje na False.
+SEO_ALLOW_INDEXING = False

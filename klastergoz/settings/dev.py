@@ -9,3 +9,5 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Wagtail rzecze: w dev wyłączamy cache strony, żeby zmiany w admin'ie były widoczne natychmiast.
 CACHES["default"]["BACKEND"] = "django.core.cache.backends.dummy.DummyCache"
+
+SEO_ALLOW_INDEXING = True
