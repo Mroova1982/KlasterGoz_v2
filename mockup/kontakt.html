@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kontakt — Klaster GOZ</title>
+  <meta name="description" content="Kontakt z Klastrem GOZ. Biuro, koordynator, formularz członkowski.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="kontakt">
+
+<div data-include="header"></div>
+
+<section class="page-header">
+  <div class="container">
+    <ul class="crumbs"><li><a href="index.html">Strona główna</a></li><li>Kontakt</li></ul>
+    <span class="eyebrow">Porozmawiajmy</span>
+    <h1 style="margin-top: 16px;">Skontaktuj się z zespołem klastra.</h1>
+    <p class="lead">Pytania ogólne, członkostwo, doradztwo, szkolenia — wybierz wygodny dla siebie kanał.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px;">
+    <div>
+      <h2 style="margin-bottom: 24px;">Dane kontaktowe</h2>
+
+      <div style="display: grid; gap: 24px;">
+        <div style="background:#fff; border:1px solid var(--ink-100); border-radius:18px; padding:28px;">
+          <h4 style="margin:0 0 8px;">Biuro klastra</h4>
+          <p style="margin:0; color: var(--ink-700);">ul. Przykładowa 12<br>00-001 Warszawa</p>
+          <p style="margin:12px 0 0; color: var(--ink-500); font-size: 14.5px;">Poniedziałek–piątek, 9:00–17:00</p>
+        </div>
+
+        <div style="background:#fff; border:1px solid var(--ink-100); border-radius:18px; padding:28px;">
+          <h4 style="margin:0 0 8px;">Sekretariat</h4>
+          <p style="margin:0;"><a href="mailto:biuro@klastergoz.pl" style="color: var(--green-800);">biuro@klastergoz.pl</a></p>
+          <p style="margin:6px 0 0;"><a href="tel:+48221234567" style="color: var(--green-800);">+48 22 123 45 67</a></p>
+        </div>
+
+        <div style="background:#fff; border:1px solid var(--ink-100); border-radius:18px; padding:28px;">
+          <h4 style="margin:0 0 8px;">Koordynator członkostwa</h4>
+          <p style="margin:0; color: var(--ink-700);">Anna Nowak</p>
+          <p style="margin:6px 0 0;"><a href="mailto:czlonkostwo@klastergoz.pl" style="color: var(--green-800);">czlonkostwo@klastergoz.pl</a></p>
+        </div>
+
+        <div style="background:#fff; border:1px solid var(--ink-100); border-radius:18px; padding:28px;">
+          <h4 style="margin:0 0 8px;">Akademia GOZ</h4>
+          <p style="margin:0;"><a href="mailto:akademia@klastergoz.pl" style="color: var(--green-800);">akademia@klastergoz.pl</a></p>
+        </div>
+
+        <div style="background:#fff; border:1px solid var(--ink-100); border-radius:18px; padding:28px;">
+          <h4 style="margin:0 0 8px;">Doradztwo (PRO GOZ, KNR Green)</h4>
+          <p style="margin:0;"><a href="mailto:doradztwo@klastergoz.pl" style="color: var(--green-800);">doradztwo@klastergoz.pl</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="dolacz">
+      <h2 style="margin-bottom: 8px;">Formularz kontaktowy</h2>
+      <p class="muted" style="margin-bottom: 24px;">Odpowiadamy w ciągu 24 godzin roboczych.</p>
+      <form class="consult-form" onsubmit="event.preventDefault(); this.innerHTML='<h3>Dziękujemy.</h3><p class=\'muted\'>Skontaktujemy się w 24 godziny.</p>';">
+        <div class="form-row cols-2">
+          <div class="field"><label>Imię i nazwisko</label><input type="text" placeholder="Anna Kowalska" required></div>
+          <div class="field"><label>Firma</label><input type="text" placeholder="Nazwa firmy"></div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="field"><label>E-mail</label><input type="email" placeholder="anna@firma.pl" required></div>
+          <div class="field"><label>Telefon</label><input type="tel" placeholder="+48 ..."></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Temat</label>
+            <select>
+              <option>Członkostwo w klastrze</option>
+              <option>Doradztwo — PRO GOZ</option>
+              <option>Certyfikacja KNR Green</option>
+              <option>GO GREEN — ESG / CSRD</option>
+              <option>Szkolenia — Akademia GOZ</option>
+              <option>Współpraca medialna / wydarzenia</option>
+              <option>Inne</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Wiadomość</label><textarea placeholder="Opowiedz nam, czego potrzebujesz…"></textarea></div>
+        </div>
+        <div class="form-row">
+          <label class="check"><input type="checkbox" required> Wyrażam zgodę na przetwarzanie danych zgodnie z <a href="rodo.html" style="text-decoration: underline;">RODO</a>.</label>
+        </div>
+        <button type="submit" class="btn btn--primary" style="width: 100%; justify-content: center;">Wyślij wiadomość <span class="arr">→</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container">
+    <div style="background: var(--green-50); border-radius: 28px; padding: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+      <!-- Map placeholder -->
+      <div style="aspect-ratio: 16/9; background: linear-gradient(135deg, var(--green-300), var(--green-700)); border-radius: 18px; display: grid; place-items: center; color: rgba(255,255,255,0.85); font-weight: 600;">Mapa — ul. Przykładowa 12, Warszawa</div>
+      <div style="display: flex; flex-direction: column; justify-content: center; padding: 28px;">
+        <span class="eyebrow">Jak dojechać</span>
+        <h3 style="margin-top: 14px;">Centrum Warszawy, 5 min od stacji metra.</h3>
+        <p class="muted">Parking dla gości za bramą. Najbliższe metro: Świętokrzyska. Tramwaje: 1, 7, 9, 22, 24.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-include="footer"></div>
+<script src="assets/include.js"></script>
+</body>
+</html>

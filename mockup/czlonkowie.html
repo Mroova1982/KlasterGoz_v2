@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Członkowie klastra — 150+ firm i instytucji | Klaster GOZ</title>
+  <meta name="description" content="Katalog członków Klastra Gospodarki Cyrkularnej i Recyklingu — Krajowego Klastra Kluczowego.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="klaster">
+
+<div data-include="header"></div>
+
+<section class="page-header">
+  <div class="container">
+    <ul class="crumbs"><li><a href="index.html">Strona główna</a></li><li>Członkowie</li></ul>
+    <span class="eyebrow">Społeczność klastra</span>
+    <h1 style="margin-top: 16px;">150+ firm i instytucji w polskim ekosystemie GOZ.</h1>
+    <p class="lead">Mikro, MŚP i duże firmy, ośrodki naukowe, jednostki samorządu gospodarczego i instytucje otoczenia biznesu. Razem zamykamy obiegi.</p>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container">
+    <div class="tab-row">
+      <a href="#" class="active">Wszyscy (152)</a>
+      <a href="#">Recykling (48)</a>
+      <a href="#">Produkcja (32)</a>
+      <a href="#">Technologie (24)</a>
+      <a href="#">Nauka (18)</a>
+      <a href="#">Doradztwo (15)</a>
+      <a href="#">Finanse (8)</a>
+      <a href="#">Administracja (7)</a>
+    </div>
+
+    <div style="display:flex; gap:12px; margin-bottom: 32px; flex-wrap: wrap;">
+      <input type="search" placeholder="Szukaj firmy, branży, technologii…" style="flex:1; min-width:260px; padding:14px 18px; border-radius:999px; border:1px solid var(--ink-100); font:inherit; font-size:15px; outline:none;">
+      <select style="padding:12px 18px; border-radius:999px; border:1px solid var(--ink-100); font:inherit; font-size:15px; background:var(--white);">
+        <option>Wszystkie województwa</option>
+        <option>mazowieckie</option><option>śląskie</option><option>wielkopolskie</option>
+      </select>
+      <select style="padding:12px 18px; border-radius:999px; border:1px solid var(--ink-100); font:inherit; font-size:15px; background:var(--white);">
+        <option>Sortuj: alfabetycznie</option>
+        <option>Najnowsi członkowie</option>
+        <option>Według branży</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="member-grid" id="grid"></div>
+
+    <div style="display: flex; justify-content: center; margin-top: 56px; gap: 8px;">
+      <a href="#" class="btn btn--primary">1</a>
+      <a href="#" class="btn btn--ghost">2</a>
+      <a href="#" class="btn btn--ghost">3</a>
+      <a href="#" class="btn btn--ghost">4</a>
+      <a href="#" class="btn btn--ghost">Następna ›</a>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container">
+    <div class="cta-strip">
+      <div>
+        <h2>Chcesz dołączyć do tej społeczności?</h2>
+        <p>Wypełnij formularz członkowski. Rozmowę z koordynatorem otrzymasz w 48h.</p>
+      </div>
+      <a href="kontakt.html#dolacz" class="btn btn--accent">Dołącz do klastra <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<div data-include="footer"></div>
+<script src="assets/include.js"></script>
+<script>
+  // Render 24 placeholder member cards
+  const branches = [
+    ['Recykling', 'Tworzywa sztuczne'],
+    ['Produkcja', 'Opakowania'],
+    ['Technologie', 'Sortowanie AI'],
+    ['Nauka', 'B+R materiały'],
+    ['Recykling', 'Metale kolorowe'],
+    ['Produkcja', 'Tekstylia'],
+    ['Doradztwo', 'ESG / CSRD'],
+    ['Technologie', 'IoT przemysłowy'],
+    ['Recykling', 'Papier i tektura'],
+    ['Produkcja', 'Meble cyrkularne'],
+    ['Finanse', 'Bank rozwoju'],
+    ['Recykling', 'Szkło opakowaniowe'],
+    ['Administracja', 'Samorząd'],
+    ['Produkcja', 'Chemia specjalistyczna'],
+    ['Technologie', 'Cyfrowe paszporty'],
+    ['Nauka', 'Politechnika'],
+    ['Recykling', 'WEEE / RTV-AGD'],
+    ['Doradztwo', 'LCA i ekoprojektowanie'],
+    ['Produkcja', 'Materiały budowlane'],
+    ['Recykling', 'Tekstylia'],
+    ['Technologie', 'Blockchain traceability'],
+    ['Finanse', 'Fundusz VC'],
+    ['Produkcja', 'Tworzywa biodegradowalne'],
+    ['Nauka', 'Instytut badawczy'],
+  ];
+  const names = ['Stena Recycling','BioPaper Polska','CyrkulaTech','Politechnika Warszawska','Re|Polska','EkoBalt','GreenLab Doradztwo','SortMaster AI','Papyrus Recykling','MebloLoop','BGK','SzkłoCirc','UM Warszawa','EcoChemia','PassportLab','PW IMiF','WEEEPro','LCA Studio','BetonCirc','TextiloRe','TraceBlock','Green Capital','BioPlastic Lab','IChPW PAN'];
+  const html = names.map((n, i) => {
+    const [b, sub] = branches[i % branches.length];
+    const initials = n.split(/[\s\|]+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+    return `<a class="member" href="#">
+      <div class="member-logo">${initials}</div>
+      <small>${b}</small>
+      <h4>${n}</h4>
+      <p style="margin:0; font-size:13.5px; color: var(--ink-500);">${sub}</p>
+    </a>`;
+  }).join('');
+  document.getElementById('grid').innerHTML = html;
+</script>
+</body>
+</html>

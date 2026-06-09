@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kategoria szkoleń | Akademia GOZ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body data-page="edukacja">
+
+<div data-include="header"></div>
+
+<section class="page-header">
+  <div class="container">
+    <ul class="crumbs">
+      <li><a href="../index.html">Strona główna</a></li>
+      <li><a href="../edukacja.html">Akademia GOZ</a></li>
+      <li><a href="atb.html">ATB</a></li>
+      <li id="cat-name">GOZ w organizacji</li>
+    </ul>
+    <span class="eyebrow">Kategoria szkoleń</span>
+    <h1 id="cat-title" style="margin-top: 16px;">GOZ w organizacji.</h1>
+    <p class="lead" id="cat-desc">Wprowadzenie do modelu cyrkularnego, wdrożenie operacyjne, zamykanie obiegów surowcowych w firmie.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="tab-row">
+      <a href="?k=specjalne">Szkolenia specjalne</a>
+      <a href="?k=goz" class="active">GOZ w organizacji</a>
+      <a href="?k=prawo">Regulacje prawne</a>
+      <a href="?k=odpady">Gospodarka odpadowa</a>
+      <a href="?k=zarzadzanie">Zarządzanie</a>
+      <a href="?k=marketing">Marketing i sprzedaż</a>
+      <a href="?k=miekkie">Kompetencje miękkie</a>
+      <a href="?k=finanse">Finanse</a>
+      <a href="?k=ai">Nowe technologie i AI</a>
+    </div>
+
+    <div class="course-list">
+      <div class="course"><div class="course-date"><div class="d">04</div><div class="m">CZE</div></div><div class="course-info"><h3>Ekoprojektowanie produktu — od koncepcji do LCA</h3><p>3-dniowy warsztat ekoprojektowania z analizą cyklu życia produktu i wymaganiami ESPR.</p><div class="course-meta"><span>● Warszawa</span><span>● 3 dni · 24h</span><span>● Piotr Mazur</span></div></div><div class="course-actions"><div class="price">2 690 zł</div><a href="szkolenie.html" class="btn btn--primary" style="justify-content:center;">Zapisz się</a></div></div>
+      <div class="course"><div class="course-date"><div class="d">12</div><div class="m">CZE</div></div><div class="course-info"><h3>Audyt cyrkularny — pierwsze 90 dni</h3><p>Jak zmapować przepływy materiałowe, zidentyfikować straty i pierwsze szanse domknięcia obiegu.</p><div class="course-meta"><span>● Online</span><span>● 2 dni · 14h</span><span>● Anna Nowak</span></div></div><div class="course-actions"><div class="price">1 590 zł</div><a href="szkolenie.html" class="btn btn--primary" style="justify-content:center;">Zapisz się</a></div></div>
+      <div class="course"><div class="course-date"><div class="d">26</div><div class="m">CZE</div></div><div class="course-info"><h3>Model biznesowy cyrkularny — 6 archetypów</h3><p>Product-as-a-service, take-back, refurbish, leasing, biomimicry — kiedy który działa.</p><div class="course-meta"><span>● Warszawa</span><span>● 2 dni · 16h</span><span>● dr Tomasz Lis</span></div></div><div class="course-actions"><div class="price">1 890 zł</div><a href="szkolenie.html" class="btn btn--primary" style="justify-content:center;">Zapisz się</a></div></div>
+    </div>
+
+    <div style="margin-top: 60px; padding: 40px; background: var(--green-50); border-radius: var(--radius-lg); display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;">
+      <div>
+        <h3 style="font-size: 22px;">Szkolenie zamknięte dla Twojego zespołu?</h3>
+        <p style="color: var(--ink-500); margin: 8px 0 0;">Każde szkolenie z katalogu możemy przygotować w formule dedykowanej — dla 8–24 osób z Twojej organizacji.</p>
+      </div>
+      <a href="../kontakt.html#akademia" class="btn btn--primary">Zapytaj o ofertę <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<div data-include="footer"></div>
+<script src="../assets/include.js"></script>
+<script>
+// dynamic category name from URL
+(function () {
+  const map = {
+    specjalne: ['Szkolenia specjalne', 'Programy dedykowane — zamknięte szkolenia dla zespołów firm członkowskich.'],
+    goz: ['GOZ w organizacji', 'Wprowadzenie do modelu cyrkularnego i jego wdrożenie operacyjne.'],
+    prawo: ['Regulacje prawne · ESG', 'CSRD, taksonomia UE, ESPR, ROP, ustawa o odpadach.'],
+    odpady: ['Zarządzanie gospodarką odpadową', 'Procesy, logistyka, BDO, sprawozdawczość, audyty.'],
+    zarzadzanie: ['Zarządzanie organizacją', 'Lean, KPI cyrkularne, integracja celów ESG ze strategią firmy.'],
+    marketing: ['Marketing i sprzedaż', 'Komunikacja zielonej oferty, greenwashing, sprzedaż B2B.'],
+    miekkie: ['Kompetencje miękkie', 'Przywództwo, negocjacje, zarządzanie zmianą.'],
+    finanse: ['Finanse w organizacji', 'Modelowanie projektów GOZ, dotacje, kredyty ekologiczne.'],
+    ai: ['Nowe technologie i AI', 'Cyfryzacja procesów, AI w produkcji, automatyzacja recyklingu.']
+  };
+  const k = new URLSearchParams(location.search).get('k') || 'goz';
+  if (map[k]) {
+    document.getElementById('cat-name').textContent = map[k][0];
+    document.getElementById('cat-title').textContent = map[k][0] + '.';
+    document.getElementById('cat-desc').textContent = map[k][1];
+    document.title = map[k][0] + ' | Akademia GOZ';
+  }
+})();
+</script>
+</body>
+</html>

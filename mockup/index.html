@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Klaster GOZ — Krajowy Klaster Kluczowy Gospodarki Cyrkularnej i Recyklingu</title>
+  <meta name="description" content="Wspieramy transformację cyrkularną i cyfrową polskich firm. Członkostwo w klastrze, szkolenia Akademii GOZ, doradztwo PRO GOZ, GO GREEN, KNR Green, PRO INNO, PRO EKO.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="home">
+
+<div data-include="header"></div>
+
+<!-- =================================================
+     HERO — SLIDER (3 slajdy zgodnie z oryginałem)
+     ================================================= -->
+<section class="hero-slider" id="heroSlider">
+  <div class="slider-track">
+
+    <article class="slide is-active" data-slide="0">
+      <div class="slide-bg" style="background-image: url('https://klastergoz.pl/static/assets/images/hero/index-hero-1.png');"></div>
+      <div class="slide-overlay"></div>
+      <div class="container slide-inner">
+        <span class="eyebrow" style="color: var(--lime-300);">Platforma KLASTERBOX</span>
+        <h1>Najnowsza<br>platforma <em>klasterbox</em>.</h1>
+        <p class="hero-lead">Od ponad 10 lat wspólnie kreujemy nowoczesną, dynamicznie działającą organizację firm i&nbsp;instytucji z&nbsp;obszaru zielonej gospodarki.</p>
+        <div class="hero-ctas">
+          <a href="login.html?p=czlonek" class="btn btn--accent">Wejdź do KLASTERBOX <span class="arr">→</span></a>
+          <a href="o-klastrze.html" class="btn btn--light">Poznaj klaster</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide" data-slide="1">
+      <div class="slide-bg" style="background-image: url('https://klastergoz.pl/static/assets/images/hero/index-hero.png');"></div>
+      <div class="slide-overlay"></div>
+      <div class="container slide-inner">
+        <span class="eyebrow" style="color: var(--lime-300);">Transformacja cyrkularna i cyfrowa</span>
+        <h1>Cyrkularna<br>gospodarka — <em>nasza wspólna</em><br>przewaga konkurencyjna.</h1>
+        <p class="hero-lead">Łączymy firmy, instytucje naukowe i ekspertów wokół jednego celu — zamykania obiegów surowcowych w&nbsp;polskim przemyśle. Certyfikujemy, szkolimy i&nbsp;doradzamy.</p>
+        <div class="hero-ctas">
+          <a href="oferta.html" class="btn btn--accent">Poznaj ofertę <span class="arr">→</span></a>
+          <a href="kontakt.html#konsultacja" class="btn btn--light">Bezpłatna konsultacja</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide" data-slide="2">
+      <div class="slide-bg" style="background-image: url('https://klastergoz.pl/static/assets/images/hero/index-hero-2.png');"></div>
+      <div class="slide-overlay"></div>
+      <div class="container slide-inner">
+        <span class="eyebrow" style="color: var(--lime-300);">Krajowy Klaster Kluczowy</span>
+        <h1>150+ firm<br>członkowskich <em>cyrkularnej</em> Polski.</h1>
+        <p class="hero-lead">Dołącz do społeczności, która od 12 lat realnie wpływa na cyrkularną transformację polskiego przemysłu — wspólnie tworzymy zaplecze surowcowe i&nbsp;regulacyjne branży.</p>
+        <div class="hero-ctas">
+          <a href="kontakt.html#dolacz" class="btn btn--accent">Dołącz do klastra <span class="arr">→</span></a>
+          <a href="czlonkowie.html" class="btn btn--light">Lista członków</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- nawigacja slidera -->
+  <div class="slider-nav container">
+    <div class="slider-meta">
+      <span class="slide-counter"><span id="curSlide">01</span><span class="of">/</span><span>03</span></span>
+      <span class="slide-progress"><span class="slide-progress-bar"></span></span>
+    </div>
+    <div class="slider-controls">
+      <button class="slider-btn" data-dir="-1" aria-label="Poprzedni">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button class="slider-btn slider-btn--pause" id="pauseBtn" aria-label="Pauza">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+      </button>
+      <button class="slider-btn" data-dir="1" aria-label="Następny">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+    <div class="slider-dots">
+      <button class="dot is-active" data-go="0" aria-label="Slajd 1"></button>
+      <button class="dot" data-go="1" aria-label="Slajd 2"></button>
+      <button class="dot" data-go="2" aria-label="Slajd 3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- pasek liczbowy / KKK -->
+<section class="hero-stats-strip">
+  <div class="container">
+    <div class="hsm"><strong>150+</strong><span>firm i instytucji członkowskich</span></div>
+    <div class="hsm"><strong>12</strong><span>lat działalności klastra</span></div>
+    <div class="hsm"><strong>19</strong><span>krajowych klastrów kluczowych w PL</span></div>
+    <div class="hsm"><strong>240 mln zł</strong><span>pozyskanego finansowania</span></div>
+  </div>
+</section>
+
+<!-- =================================================
+     3 FILARY
+     ================================================= -->
+<section class="section">
+  <div class="container">
+    <div class="pillars-head">
+      <div>
+        <span class="eyebrow">Co robimy</span>
+        <h2 style="margin-top: 14px;">Trzy filary, które przyspieszają transformację cyrkularną Twojej firmy.</h2>
+      </div>
+      <p class="lead muted">Każdy filar to osobna ścieżka wsparcia — ale realna wartość pojawia się, kiedy łączymy je w jedną strategię dla członka klastra.</p>
+    </div>
+
+    <div class="pillars-grid">
+
+      <a href="klaster.html" class="pillar">
+        <span class="num">01 / FILAR</span>
+        <span class="ico">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="7" r="3"></circle><circle cx="17" cy="11" r="2.5"></circle><circle cx="7" cy="16" r="2.5"></circle><circle cx="16" cy="18" r="2.5"></circle>
+            <line x1="9" y1="10" x2="14.5" y2="11"></line><line x1="9" y1="10" x2="8" y2="14"></line><line x1="14.5" y1="13" x2="15.5" y2="16"></line>
+          </svg>
+        </span>
+        <h3>Klaster ogólnokrajowy</h3>
+        <p>Krajowy Klaster Kluczowy — platforma kooperacji 150+ firm, ośrodków naukowych i instytucji wsparcia biznesu.</p>
+        <ul>
+          <li>Członkostwo i networking</li>
+          <li>Wspólne projekty B+R</li>
+          <li>Reprezentacja branży</li>
+          <li>Giełda usług, showroom</li>
+        </ul>
+        <span class="pill-link">Dołącz do klastra</span>
+      </a>
+
+      <a href="edukacja.html" class="pillar pillar--dark">
+        <span class="num">02 / FILAR</span>
+        <span class="ico">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10 L12 5 L2 10 L12 15 Z"></path><path d="M6 12 V17 C6 18 9 20 12 20 C15 20 18 18 18 17 V12"></path><line x1="22" y1="10" x2="22" y2="16"></line>
+          </svg>
+        </span>
+        <h3>Edukacja — Akademia GOZ</h3>
+        <p>Szkolenia, akredytacje i programy rozwojowe dla menedżerów i specjalistów transformacji cyrkularnej.</p>
+        <ul>
+          <li>Akademia Trenerów Biznesu (ATB)</li>
+          <li>ATB-VIP, ATT — ścieżki zaawansowane</li>
+          <li>Szkolenia z GOZ, AI, ESG, regulacji</li>
+          <li>Harmonogram szkoleń otwartych</li>
+        </ul>
+        <span class="pill-link">Zobacz harmonogram</span>
+      </a>
+
+      <a href="doradztwo.html" class="pillar">
+        <span class="num">03 / FILAR</span>
+        <span class="ico">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 L15 9 L22 9 L17 14 L19 21 L12 17 L5 21 L7 14 L2 9 L9 9 Z"></path>
+          </svg>
+        </span>
+        <h3>Doradztwo</h3>
+        <p>Indywidualne wsparcie firm — od audytu i modelu biznesowego, przez ekoprojektowanie, po certyfikację.</p>
+        <ul>
+          <li>PRO GOZ — model cyrkularny</li>
+          <li>GO GREEN — ślad węglowy, ESG</li>
+          <li>KNR Green — certyfikacja recyklingu</li>
+          <li>PRO INNO · PRO EKO</li>
+        </ul>
+        <span class="pill-link">Umów konsultację</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- =================================================
+     DARMOWA KONSULTACJA
+     ================================================= -->
+<section class="section bg-green">
+  <div class="container consult">
+    <div>
+      <span class="eyebrow">Bezpłatna konsultacja</span>
+      <h2 style="margin-top: 14px;">Nie wiesz, od czego zacząć cyrkularną transformację?</h2>
+      <p class="lead muted" style="max-width: 520px;">
+        Umów 30 min spotkanie z ekspertem klastra. Bez zobowiązań — sprawdzimy, w którym z filarów Twoja firma zyska najwięcej.
+      </p>
+      <ul style="list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 12px;">
+        <li style="display: flex; gap: 12px; align-items: center; font-size: 15px;">
+          <span style="width: 28px; height: 28px; background: var(--green-700); color: #fff; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13px;">1</span>
+          Rozmowa diagnostyczna — gdzie jesteś w transformacji
+        </li>
+        <li style="display: flex; gap: 12px; align-items: center; font-size: 15px;">
+          <span style="width: 28px; height: 28px; background: var(--green-700); color: #fff; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13px;">2</span>
+          Rekomendacja konkretnej ścieżki w klastrze
+        </li>
+        <li style="display: flex; gap: 12px; align-items: center; font-size: 15px;">
+          <span style="width: 28px; height: 28px; background: var(--green-700); color: #fff; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13px;">3</span>
+          Konkretne źródła finansowania transformacji
+        </li>
+      </ul>
+    </div>
+
+    <form class="consult-form" onsubmit="event.preventDefault(); this.innerHTML='<h3>Dziękujemy.</h3><p class=\'muted\'>Skontaktujemy się w 24 godziny.</p>';">
+      <h3>Bezpłatna konsultacja</h3>
+      <div class="form-row cols-2">
+        <div class="field"><label>Imię i nazwisko</label><input type="text" placeholder="Anna Kowalska" required></div>
+        <div class="field"><label>Firma</label><input type="text" placeholder="Nazwa firmy"></div>
+      </div>
+      <div class="form-row cols-2">
+        <div class="field"><label>E-mail</label><input type="email" placeholder="anna@firma.pl" required></div>
+        <div class="field"><label>Telefon</label><input type="tel" placeholder="+48 ..."></div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Interesuje mnie</label>
+          <select>
+            <option>Członkostwo w klastrze</option>
+            <option>Szkolenia — Akademia GOZ</option>
+            <option>Doradztwo — PRO GOZ</option>
+            <option>Certyfikacja KNR Green</option>
+            <option>GO GREEN — ślad węglowy, ESG</option>
+            <option>Finansowanie projektów GOZ</option>
+            <option>Inne</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Krótki opis</label><textarea placeholder="Powiedz nam, czego potrzebujesz..."></textarea></div>
+      </div>
+      <div class="form-row">
+        <label class="check"><input type="checkbox" required> Wyrażam zgodę na przetwarzanie danych zgodnie z <a href="rodo.html" style="text-decoration: underline;">RODO</a>.</label>
+      </div>
+      <button type="submit" class="btn btn--primary" style="width: 100%; justify-content: center;">Wyślij zgłoszenie <span class="arr">→</span></button>
+    </form>
+  </div>
+</section>
+
+<!-- =================================================
+     STATS
+     ================================================= -->
+<section class="section--tight">
+  <div class="container">
+    <div class="stats">
+      <div class="stat-item"><strong>150+</strong><span>firm i instytucji członkowskich</span></div>
+      <div class="stat-item"><strong>1 200+</strong><span>uczestników szkoleń Akademii GOZ</span></div>
+      <div class="stat-item"><strong>87</strong><span>projektów zrealizowanych</span></div>
+      <div class="stat-item"><strong>240 mln zł</strong><span>pozyskanego finansowania</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================
+     OFERTA — kafelki usług
+     ================================================= -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Usługi klastra</span>
+        <h2 style="margin-top: 14px;">Pełen portfel narzędzi transformacji cyrkularnej.</h2>
+      </div>
+      <a href="oferta.html" class="btn btn--ghost">Cała oferta <span class="arr">→</span></a>
+    </div>
+
+    <div class="offerings">
+      <a href="oferta/knr-green.html" class="offering">
+        <span class="tag">Certyfikacja</span>
+        <h3>KNR Green</h3>
+        <p>Pierwszy polski standard certyfikacji recyklingu — potwierdzenie udziału materiałów z recyklingu w produktach.</p>
+        <span class="more">Sprawdź standard →</span>
+      </a>
+      <a href="oferta/pro-goz.html" class="offering">
+        <span class="tag">Doradztwo</span>
+        <h3>PRO GOZ</h3>
+        <p>Kompleksowa usługa wsparcia firm w budowie produktów, usług i modeli biznesowych zgodnych z GOZ.</p>
+        <span class="more">Zobacz proces →</span>
+      </a>
+      <a href="oferta/proinno.html" class="offering">
+        <span class="tag">Innowacje</span>
+        <h3>PRO INNO</h3>
+        <p>Wsparcie w transformacji innowacyjnej i cyfrowej — od pomysłu po wdrożenie technologii.</p>
+        <span class="more">Sprawdź zakres →</span>
+      </a>
+      <a href="oferta/gogreen.html" class="offering">
+        <span class="tag">ESG · CSRD</span>
+        <h3>GO GREEN</h3>
+        <p>Ograniczenie śladu węglowego firmy. Sprawozdawczość zgodna z nową taksonomią finansową i społeczną.</p>
+        <span class="more">Dowiedz się więcej →</span>
+      </a>
+      <a href="oferta/proeko.html" class="offering">
+        <span class="tag">Ekoprojektowanie</span>
+        <h3>PRO EKO</h3>
+        <p>Ekoprojektowanie kluczem do cyrkularnych zmian — minimalizacja śladu produktu w całym łańcuchu dostaw.</p>
+        <span class="more">Zobacz metodykę →</span>
+      </a>
+      <a href="edukacja.html" class="offering">
+        <span class="tag">Szkolenia</span>
+        <h3>Akademia GOZ</h3>
+        <p>ATB · ATB-VIP · ATT — programy szkoleniowe dla menedżerów, trenerów i specjalistów transformacji.</p>
+        <span class="more">Otwórz harmonogram →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================
+     ZAUFANI CZŁONKOWIE / LOGOSY
+     ================================================= -->
+<section class="section--tight">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 36px;">
+      <span class="eyebrow">Zaufali nam</span>
+      <h3 style="margin-top: 12px; font-size: 24px; max-width: 720px; margin-left: auto; margin-right: auto;">Wybrane firmy i instytucje członkowskie</h3>
+    </div>
+    <div class="logos">
+      <div>STENA</div><div>Saint-Gobain</div><div>Tauron</div><div>Re|Polska</div><div>BioPaper</div><div>EkoBalt</div>
+      <div>Politechnika</div><div>PARP</div><div>FENG</div><div>NCBR</div><div>Cyrkular</div><div>GreenLab</div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================
+     O KLASTRZE — feature
+     ================================================= -->
+<section class="section">
+  <div class="container feature feature--reverse">
+    <div class="feature-text">
+      <span class="eyebrow">O klastrze</span>
+      <h2 style="margin-top: 14px;">Zaplecze surowcowe dla polskiego przemysłu.</h2>
+      <p class="lead muted">
+        Klaster Gospodarki Cyrkularnej i Recyklingu od 2016 roku należy do elitarnego grona Krajowych Klastrów Kluczowych certyfikowanych przez Ministerstwo Rozwoju i Technologii RP.
+      </p>
+      <ul>
+        <li>Status Krajowego Klastra Kluczowego — instrument polityki rozwoju państwa</li>
+        <li>Synergia biznesu, nauki, samorządu i instytucji finansowych</li>
+        <li>Pełen łańcuch wartości — od ekoprojektowania po recykling</li>
+        <li>Aktywność krajowa i międzynarodowa, partnerzy w UE</li>
+      </ul>
+      <div style="display: flex; gap: 12px;">
+        <a href="o-klastrze.html" class="btn btn--primary">Poznaj klaster <span class="arr">→</span></a>
+        <a href="zespol.html" class="btn btn--ghost">Zespół</a>
+      </div>
+    </div>
+    <div class="feature-img">
+      <span>Zdjęcie / wideo — spotkanie członków klastra</span>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================
+     AKTUALNOŚCI
+     ================================================= -->
+<section class="section bg-green">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Aktualności</span>
+        <h2 style="margin-top: 14px;">Co dzieje się w cyrkularnej Polsce.</h2>
+      </div>
+      <a href="aktualnosci.html" class="btn btn--ghost">Wszystkie wpisy <span class="arr">→</span></a>
+    </div>
+
+    <div class="cards">
+      <a href="artykul.html" class="card">
+        <div class="card-img" data-color="3"><span>okładka</span></div>
+        <div class="card-body">
+          <div class="card-meta"><span>Aktualności</span><span class="dot"></span><span>4 min</span><span class="dot"></span><span>12.05.2026</span></div>
+          <h3>Nowy nabór w FENG: 280 mln zł na GOZ-transformację MŚP</h3>
+          <p>Polska Agencja Rozwoju Przedsiębiorczości ogłosiła II etap konkursu na wdrożenie modelu biznesowego GOZ-transformacji.</p>
+          <span class="read">Czytaj →</span>
+        </div>
+      </a>
+      <a href="artykul.html" class="card">
+        <div class="card-img" data-color="2"><span>okładka</span></div>
+        <div class="card-body">
+          <div class="card-meta"><span>Wydarzenie</span><span class="dot"></span><span>3 min</span><span class="dot"></span><span>02.05.2026</span></div>
+          <h3>Polish Circular Forum 2026 — zapisy otwarte</h3>
+          <p>Druga edycja największego w Polsce kongresu poświęconego gospodarce obiegu zamkniętego odbędzie się w Warszawie.</p>
+          <span class="read">Czytaj →</span>
+        </div>
+      </a>
+      <a href="artykul.html" class="card">
+        <div class="card-img" data-color="4"><span>okładka</span></div>
+        <div class="card-body">
+          <div class="card-meta"><span>Case study</span><span class="dot"></span><span>6 min</span><span class="dot"></span><span>28.04.2026</span></div>
+          <h3>KNR Green w branży tekstylnej — pierwsza certyfikacja</h3>
+          <p>Jak polski recykler tekstyliów potwierdził udział materiałów z recyklingu na poziomie 67% w swoich produktach.</p>
+          <span class="read">Czytaj →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================
+     CTA STRIP
+     ================================================= -->
+<section class="section--tight">
+  <div class="container">
+    <div class="cta-strip">
+      <div>
+        <span class="chip chip--lime">Krajowy Klaster Kluczowy</span>
+        <h2 style="margin-top: 14px;">Wzmocnij konkurencyjność firmy w sieci 150+ partnerów.</h2>
+        <p>Dołącz do społeczności, która od 12 lat realnie wpływa na cyrkularną transformację polskiego przemysłu.</p>
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="kontakt.html#dolacz" class="btn btn--accent">Dołącz do klastra <span class="arr">→</span></a>
+        <a href="kontakt.html" class="btn btn--light">Porozmawiajmy</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-include="footer"></div>
+<script src="assets/include.js"></script>
+<script>
+// HERO SLIDER
+(function () {
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  const counter = document.getElementById('curSlide');
+  const progress = document.querySelector('.slide-progress-bar');
+  const pauseBtn = document.getElementById('pauseBtn');
+  let idx = 0, timer = null, paused = false;
+  const DURATION = 6000;
+
+  function go(n, manual) {
+    idx = (n + slides.length) % slides.length;
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    counter.textContent = String(idx + 1).padStart(2, '0');
+    progress.style.animation = 'none';
+    progress.offsetHeight; // reflow
+    if (!paused) progress.style.animation = `slideProgress ${DURATION}ms linear forwards`;
+    if (manual) restart();
+  }
+  function tick() { go(idx + 1); }
+  function start() { timer = setInterval(tick, DURATION); }
+  function stop() { clearInterval(timer); }
+  function restart() { stop(); if (!paused) start(); }
+
+  document.querySelectorAll('[data-dir]').forEach(b =>
+    b.addEventListener('click', () => go(idx + parseInt(b.dataset.dir, 10), true))
+  );
+  dots.forEach(d =>
+    d.addEventListener('click', () => go(parseInt(d.dataset.go, 10), true))
+  );
+  pauseBtn.addEventListener('click', () => {
+    paused = !paused;
+    pauseBtn.classList.toggle('is-paused', paused);
+    pauseBtn.innerHTML = paused
+      ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"></polygon></svg>'
+      : '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
+    if (paused) { stop(); progress.style.animationPlayState = 'paused'; }
+    else { restart(); progress.style.animationPlayState = 'running'; }
+  });
+
+  go(0);
+  start();
+})();
+</script>
+</body>
+</html>

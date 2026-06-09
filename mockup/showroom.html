@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Showroom — produkty i technologie członków klastra | Klaster GOZ</title>
+  <meta name="description" content="Showroom członków klastra GOZ — innowacyjne produkty cyrkularne, technologie recyklingu, ekoprojekty.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="klaster">
+
+<div data-include="header"></div>
+
+<section class="page-header">
+  <div class="container">
+    <ul class="crumbs"><li><a href="index.html">Strona główna</a></li><li>Showroom</li></ul>
+    <span class="eyebrow">Showroom klastra</span>
+    <h1 style="margin-top: 16px;">Cyrkularne produkty i technologie z polskich fabryk.</h1>
+    <p class="lead">Wystawa produktów członków klastra — od materiałów z recyklingu, przez urządzenia sortujące, po cyrkularne produkty końcowe. Każdy zweryfikowany przez ekspertów klastra.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="tab-row">
+      <a href="#" class="active">Wszystko</a>
+      <a href="#">Materiały z recyklingu</a>
+      <a href="#">Maszyny i technologie</a>
+      <a href="#">Produkty cyrkularne</a>
+      <a href="#">Usługi</a>
+    </div>
+
+    <div class="cards" id="showroom-grid"></div>
+  </div>
+</section>
+
+<div data-include="footer"></div>
+<script src="assets/include.js"></script>
+<script>
+  const items = [
+    {cat:'Materiał', name:'rPET klasy spożywczej', vendor:'CyrkulaTech', desc:'Regranulat rPET o czystości 99,8% — dopuszczony do kontaktu z żywnością.', c:1},
+    {cat:'Technologia', name:'SortAI 2.0 — system sortowania', vendor:'SortMaster AI', desc:'Hiperspektralny system sortowania odpadów oparty o uczenie maszynowe.', c:2},
+    {cat:'Produkt', name:'Mebel biurowy "Loop"', vendor:'MebloLoop', desc:'Krzesło biurowe w 87% z materiałów z recyklingu, w pełni demontowalne.', c:3},
+    {cat:'Materiał', name:'Bawełna z recyklingu pre-consumer', vendor:'TextiloRe', desc:'Włókno bawełniane odzyskane z odpadów produkcyjnych — bez chemii.', c:4},
+    {cat:'Technologia', name:'Linia depolimeryzacji PET', vendor:'Stena Recycling', desc:'Modułowa linia chemicznego recyklingu PET o wydajności 12 t/h.', c:1},
+    {cat:'Produkt', name:'Panel akustyczny z PET', vendor:'CyrkulaTech', desc:'Panele akustyczne do biur — 100% z butelek PET, klasa A absorpcji.', c:2},
+    {cat:'Usługa', name:'Cyfrowy paszport produktu', vendor:'PassportLab', desc:'Platforma DPP zgodna z ESPR — gotowy SaaS dla producentów.', c:3},
+    {cat:'Materiał', name:'Beton z dodatkiem RCA', vendor:'BetonCirc', desc:'Beton konstrukcyjny z 30% udziałem kruszywa z recyklingu.', c:4},
+    {cat:'Technologia', name:'Robot demontażowy WEEE', vendor:'WEEEPro', desc:'Robot do automatycznego demontażu monitorów i sprzętu RTV-AGD.', c:1},
+  ];
+  document.getElementById('showroom-grid').innerHTML = items.map(it => `
+    <a class="card" href="#">
+      <div class="card-img" data-color="${it.c}"><span>${it.cat}</span></div>
+      <div class="card-body">
+        <div class="card-meta"><span>${it.vendor}</span></div>
+        <h3>${it.name}</h3>
+        <p>${it.desc}</p>
+        <span class="read">Zobacz szczegóły →</span>
+      </div>
+    </a>
+  `).join('');
+</script>
+</body>
+</html>
