@@ -1,6 +1,5 @@
 {% load static wagtailimages_tags %}
 {% comment %}Meta SEO/OG. Oczekuje obiektu `page` z metodami SeoMixin (może być None).{% endcomment %}
-<title>{% block meta_title %}{% if page %}{{ page.get_meta_title }}{% else %}{{ settings.shared.GeneralSettings.organization_name }}{% endif %}{% endblock %}</title>
 {% if page %}<meta name="description" content="{{ page.get_meta_description }}">{% endif %}
 <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
 

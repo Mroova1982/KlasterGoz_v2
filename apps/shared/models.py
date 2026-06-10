@@ -165,9 +165,25 @@ class FooterSettings(BaseSiteSetting):
         blank=True,
         default="Co miesiąc — bez spamu, sama treść.",
     )
+    portals_heading = models.CharField(
+        "Nagłówek kolumny portali", max_length=80, blank=True, default="Portale"
+    )
+    contact_heading = models.CharField(
+        "Nagłówek kolumny kontaktu", max_length=80, blank=True, default="Kontakt"
+    )
+    legal_links = StreamField(
+        [("link", blocks.LinkBlock())],
+        blank=True,
+        help_text="Linki prawne w dolnym pasku stopki (RODO, Regulamin, Cookies).",
+    )
 
     panels = [
         FieldPanel("columns"),
+        FieldPanel("legal_links"),
+        MultiFieldPanel(
+            [FieldPanel("portals_heading"), FieldPanel("contact_heading")],
+            heading="Nagłówki kolumn stopki",
+        ),
         MultiFieldPanel(
             [FieldPanel("newsletter_heading"), FieldPanel("newsletter_subtext")],
             heading="Newsletter (placeholder — pełna integracja w Fazie 4)",

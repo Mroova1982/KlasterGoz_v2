@@ -31,14 +31,14 @@
 
       <div>
         {% if settings.shared.PortalsSettings.portals %}
-        <h4>Portale</h4>
+        <h4>{{ settings.shared.FooterSettings.portals_heading }}</h4>
         <ul>
           {% for portal in settings.shared.PortalsSettings.portals %}
           <li><a href="{{ portal.value.url }}" target="_blank" rel="noopener">{{ portal.value.label }}</a></li>
           {% endfor %}
         </ul>
         {% endif %}
-        <h4 style="margin-top: 28px;">Kontakt</h4>
+        <h4 style="margin-top: 28px;">{{ settings.shared.FooterSettings.contact_heading }}</h4>
         <ul>
           {% if settings.shared.GeneralSettings.address %}<li style="color: rgba(255,255,255,0.7);">{{ settings.shared.GeneralSettings.address|linebreaksbr }}</li>{% endif %}
           {% if settings.shared.GeneralSettings.email %}<li><a href="mailto:{{ settings.shared.GeneralSettings.email }}">{{ settings.shared.GeneralSettings.email }}</a></li>{% endif %}
@@ -54,6 +54,13 @@
 
     <div class="footer-bottom">
       <span>© {% now "Y" %} {{ settings.shared.GeneralSettings.organization_name }}</span>
+      {% if settings.shared.FooterSettings.legal_links %}
+      <ul>
+        {% for item in settings.shared.FooterSettings.legal_links %}
+        <li><a href="{% if item.value.page %}{{ item.value.page.url }}{% elif item.value.url %}{{ item.value.url }}{% else %}#{% endif %}">{{ item.value.label }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
     </div>
   </div>
 </footer>
