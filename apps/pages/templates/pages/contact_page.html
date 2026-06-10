@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_attrs %}data-page="kontakt"{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <ul class="crumbs"><li><a href="/">Strona główna</a></li><li>{{ page.title }}</li></ul>
+    <h1 style="margin-top: 16px;">{{ page.title }}</h1>
+    {% if page.intro %}<div class="lead">{{ page.intro|richtext }}</div>{% endif %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px;">
+    <div>
+      <h2 style="margin-bottom: 24px;">Dane kontaktowe</h2>
+      <div style="display: grid; gap: 24px;">
+        {% for card in page.contact_cards.all %}
+        <div style="background:#fff; border:1px solid var(--ink-100); border-radius:18px; padding:28px;">
+          <h4 style="margin:0 0 8px;">{{ card.heading }}</h4>
+          <div style="color: var(--ink-700);">{{ card.body|richtext }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div id="formularz">
+      <h2 style="margin-bottom: 8px;">Formularz kontaktowy</h2>
+      <form class="consult-form" action="{% pageurl page %}" method="post">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+          <div class="form-row">
+            <div class="field">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+              {% for error in field.errors %}<small class="error">{{ error }}</small>{% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+        {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+        <button type="submit" class="btn btn--primary" style="width: 100%; justify-content: center;">Wyślij wiadomość <span class="arr">→</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% if page.map_embed %}
+<section class="section--tight">
+  <div class="container">{{ page.map_embed|safe }}</div>
+</section>
+{% endif %}
+{% endblock %}

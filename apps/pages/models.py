@@ -1,10 +1,14 @@
-"""Statyczne typy stron: LegalPage (dokumenty prawne); ContactPage dodawany w Task 9."""
+"""Statyczne typy stron: LegalPage (dokumenty prawne) i ContactPage (formularz)."""
+from django.db import models
+from modelcluster.fields import ParentalKey
 from wagtail import blocks
-from wagtail.admin.panels import FieldPanel
-from wagtail.fields import StreamField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 
-from apps.shared.models import BasePage
+from apps.pages.forms import HoneypotFormBuilder
+from apps.shared.models import BasePage, SeoMixin
 
 
 class LegalPage(BasePage):
@@ -27,3 +31,68 @@ class LegalPage(BasePage):
     class Meta:
         verbose_name = "Strona prawna"
         verbose_name_plural = "Strony prawne"
+
+
+class ContactFormField(AbstractFormField):
+    """Pole formularza kontaktowego (konfigurowalne przez redaktora)."""
+
+    page = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="form_fields")
+
+
+class ContactPageContactCard(models.Model):
+    """Karta z danymi kontaktowymi (biuro, sekretariat, koordynator...)."""
+
+    page = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="contact_cards")
+    heading = models.CharField("Nagłówek", max_length=120)
+    body = RichTextField("Treść", features=["bold", "link"])
+    sort_order = models.IntegerField(default=0, blank=True)
+
+    panels = [FieldPanel("heading"), FieldPanel("body")]
+
+    class Meta:
+        ordering = ["sort_order"]
+
+
+class ContactPage(SeoMixin, AbstractEmailForm):
+    """Strona kontaktu: Form Builder + karty kontaktowe + mapa. Jedna instancja."""
+
+    form_builder = HoneypotFormBuilder
+
+    intro = RichTextField("Wstęp nad formularzem", blank=True, features=["bold", "italic", "link"])
+    thank_you_text = RichTextField(
+        "Tekst podziękowania", blank=True, features=["bold", "link"]
+    )
+    map_embed = models.TextField(
+        "Mapa (embed HTML / iframe)",
+        blank=True,
+        help_text="Wklej kod iframe z Google Maps. Puste = brak mapy.",
+    )
+
+    content_panels = AbstractEmailForm.content_panels + [
+        FieldPanel("intro"),
+        InlinePanel("contact_cards", label="Karty kontaktowe"),
+        InlinePanel("form_fields", label="Pola formularza"),
+        FieldPanel("thank_you_text"),
+        FieldPanel("map_embed"),
+        MultiFieldPanel(
+            [
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
+            ],
+            heading="Powiadomienie e-mail o zgłoszeniu",
+        ),
+    ]
+    promote_panels = SeoMixin.promote_panels
+
+    template = "pages/contact_page.html"
+    landing_page_template = "pages/contact_page_landing.html"
+
+    def process_form_submission(self, form):
+        """Odrzuca zgłoszenia z wypełnionym honeypotem (cicho — bot nie wie)."""
+        if form.cleaned_data.get("hp_website"):
+            return None
+        return super().process_form_submission(form)
+
+    class Meta:
+        verbose_name = "Strona kontaktu"
