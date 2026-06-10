@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_attrs %}data-page="{{ page.slug }}"{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <ul class="crumbs"><li><a href="/">Strona główna</a></li><li>{{ page.title }}</li></ul>
+    {% if page.eyebrow %}<span class="eyebrow">{{ page.eyebrow }}</span>{% endif %}
+    <h1 style="margin-top: 16px;">{{ page.title }}</h1>
+    {% if page.hero_lead %}<p class="lead">{{ page.hero_lead }}</p>{% endif %}
+    <div style="display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap;">
+      {% if page.primary_cta_label %}<a href="{{ page.primary_cta_url|default:'#' }}" class="btn btn--primary">{{ page.primary_cta_label }} <span class="arr">→</span></a>{% endif %}
+      {% if page.secondary_cta_label %}<a href="{{ page.secondary_cta_url|default:'#' }}" class="btn btn--ghost">{{ page.secondary_cta_label }}</a>{% endif %}
+    </div>
+  </div>
+</section>
+
+{% if page.benefits.all %}
+<section class="section">
+  <div class="container">
+    {% if page.benefits_heading %}<div class="section-head"><div><h2>{{ page.benefits_heading }}</h2></div></div>{% endif %}
+    <div class="offerings">
+      {% for b in page.benefits.all %}
+      <div class="offering">
+        {% if b.tag %}<span class="tag">{{ b.tag }}</span>{% endif %}
+        <h3>{{ b.title }}</h3>
+        {% if b.description %}<p>{{ b.description }}</p>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.feature_heading %}
+<section class="section bg-green">
+  <div class="container feature">
+    <div class="feature-img"><span>{{ page.feature_heading }}</span></div>
+    <div class="feature-text">
+      <h2 style="margin-top: 14px;">{{ page.feature_heading }}</h2>
+      {% if page.feature_lead %}<p class="lead muted">{{ page.feature_lead }}</p>{% endif %}
+      {% if page.feature_bullet_list %}<ul>{% for li in page.feature_bullet_list %}<li>{{ li }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.steps.all %}
+<section class="section">
+  <div class="container">
+    {% if page.steps_heading %}<div class="section-head"><div><h2>{{ page.steps_heading }}</h2></div></div>{% endif %}
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+      {% for s in page.steps.all %}
+      <div style="background: var(--white); border: 1px solid var(--ink-100); border-radius: 18px; padding: 28px;">
+        <strong style="font-family: var(--font-display); font-size: 32px; color: var(--green-700); display: block;">{{ s.number }}</strong>
+        <h4 style="margin: 12px 0 8px;">{{ s.title }}</h4>
+        <p style="margin: 0; font-size: 14.5px; color: var(--ink-500);">{{ s.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if children %}
+<section class="section--tight">
+  <div class="container">
+    <div class="offerings">
+      {% for child in children %}
+      <a href="{% pageurl child %}" class="offering"><h3>{{ child.title }}</h3>{% if child.search_description %}<p>{{ child.search_description }}</p>{% endif %}<span class="more">Zobacz →</span></a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.cta_heading %}
+<section class="section--tight">
+  <div class="container">
+    <div class="cta-strip">
+      <div>
+        <h2>{{ page.cta_heading }}</h2>
+        {% if page.cta_lead %}<p>{{ page.cta_lead }}</p>{% endif %}
+      </div>
+      {% if page.cta_button_label %}<div style="display:flex; gap:12px; flex-wrap:wrap;"><a href="{{ page.cta_button_url|default:'#' }}" class="btn btn--accent">{{ page.cta_button_label }} <span class="arr">→</span></a></div>{% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

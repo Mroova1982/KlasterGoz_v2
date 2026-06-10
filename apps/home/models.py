@@ -1,8 +1,12 @@
 """Modele strony głównej i filarów: snippety (HeroSlide, Pillar, Statistic), HomePage, PillarPage."""
 from django.db import models
+from modelcluster.fields import ParentalKey
 from wagtail.snippets.models import register_snippet
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
+from wagtail.models import Orderable
+
+from apps.shared.models import BasePage
 
 
 @register_snippet
@@ -107,3 +111,95 @@ class Statistic(models.Model):
         ordering = ["sort_order"]
         verbose_name = "Statystyka"
         verbose_name_plural = "Statystyki"
+
+
+class PillarBenefit(Orderable):
+    """Kafelek korzyści na stronie-filarze."""
+
+    page = ParentalKey("PillarPage", on_delete=models.CASCADE, related_name="benefits")
+    tag = models.CharField("Tag", max_length=40, blank=True)
+    title = models.CharField("Tytuł", max_length=120)
+    description = models.TextField("Opis", blank=True)
+
+    panels = [FieldPanel("tag"), FieldPanel("title"), FieldPanel("description")]
+
+
+class PillarStep(Orderable):
+    """Krok procesu (np. jak dołączyć)."""
+
+    page = ParentalKey("PillarPage", on_delete=models.CASCADE, related_name="steps")
+    number = models.CharField("Numer", max_length=4, help_text="np. '01'")
+    title = models.CharField("Tytuł", max_length=80)
+    description = models.TextField("Opis", blank=True)
+
+    panels = [FieldPanel("number"), FieldPanel("title"), FieldPanel("description")]
+
+
+class PillarPage(BasePage):
+    """Landing filaru (Klaster / Edukacja / Doradztwo). Jeden typ, 3 instancje."""
+
+    eyebrow = models.CharField("Nadtytuł (np. 'Filar 01 · Klaster')", max_length=120, blank=True)
+    hero_lead = models.TextField("Lead w hero", blank=True)
+    primary_cta_label = models.CharField("CTA główne — tekst", max_length=60, blank=True)
+    primary_cta_url = models.CharField("CTA główne — URL", max_length=255, blank=True)
+    secondary_cta_label = models.CharField("CTA drugie — tekst", max_length=60, blank=True)
+    secondary_cta_url = models.CharField("CTA drugie — URL", max_length=255, blank=True)
+
+    benefits_heading = models.CharField("Nagłówek sekcji korzyści", max_length=160, blank=True)
+
+    feature_heading = models.CharField("Blok 'jak działamy' — nagłówek", max_length=160, blank=True)
+    feature_lead = models.TextField("Blok 'jak działamy' — lead", blank=True)
+    feature_bullets = models.TextField("Blok 'jak działamy' — punkty (jeden na linię)", blank=True)
+
+    steps_heading = models.CharField("Nagłówek sekcji procesu", max_length=160, blank=True)
+
+    cta_heading = models.CharField("CTA strip — nagłówek", max_length=200, blank=True)
+    cta_lead = models.TextField("CTA strip — lead", blank=True)
+    cta_button_label = models.CharField("CTA strip — przycisk", max_length=60, blank=True)
+    cta_button_url = models.CharField("CTA strip — URL", max_length=255, blank=True)
+
+    content_panels = BasePage.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("eyebrow"),
+                FieldPanel("hero_lead"),
+                FieldPanel("primary_cta_label"),
+                FieldPanel("primary_cta_url"),
+                FieldPanel("secondary_cta_label"),
+                FieldPanel("secondary_cta_url"),
+            ],
+            heading="Hero",
+        ),
+        FieldPanel("benefits_heading"),
+        InlinePanel("benefits", label="Korzyści"),
+        MultiFieldPanel(
+            [FieldPanel("feature_heading"), FieldPanel("feature_lead"), FieldPanel("feature_bullets")],
+            heading="Blok 'jak działamy'",
+        ),
+        FieldPanel("steps_heading"),
+        InlinePanel("steps", label="Kroki procesu"),
+        MultiFieldPanel(
+            [
+                FieldPanel("cta_heading"),
+                FieldPanel("cta_lead"),
+                FieldPanel("cta_button_label"),
+                FieldPanel("cta_button_url"),
+            ],
+            heading="CTA strip",
+        ),
+    ]
+    promote_panels = BasePage.promote_panels
+    template = "home/pillar_page.html"
+
+    def feature_bullet_list(self) -> list[str]:
+        return [b.strip() for b in self.feature_bullets.splitlines() if b.strip()]
+
+    def get_context(self, request):
+        ctx = super().get_context(request)
+        # Żywe dzieci strony-filaru (puste w Fazie 1 — podstrony dochodzą w Fazach 2–4).
+        ctx["children"] = self.get_children().live().specific()
+        return ctx
+
+    class Meta:
+        verbose_name = "Strona filaru"
+        verbose_name_plural = "Strony filarów"
