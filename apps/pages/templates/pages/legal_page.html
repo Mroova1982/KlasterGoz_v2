@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_attrs %}data-page="legal"{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <ul class="crumbs"><li><a href="/">Strona główna</a></li><li>{{ page.title }}</li></ul>
+    <h1 style="margin-top: 16px;">{{ page.title }}</h1>
+    {% if page.search_description %}<p class="lead">{{ page.search_description }}</p>{% endif %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <article class="article">
+      {% for block in page.body %}
+        {% if block.block_type == "heading" %}<h2>{{ block.value }}</h2>
+        {% elif block.block_type == "paragraph" %}{{ block.value|richtext }}
+        {% elif block.block_type == "image" %}{% image block.value width-900 %}
+        {% endif %}
+      {% endfor %}
+    </article>
+  </div>
+</section>
+{% endblock %}
