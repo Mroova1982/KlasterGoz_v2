@@ -38,6 +38,9 @@ extend-exclude = ["migrations", "static", "media"]
 select = ["E", "F", "W", "I", "UP", "B", "C4", "DJ"]   # E/F/W = pyflakes/pycodestyle; I = isort; UP = pyupgrade; B = bugbear; C4 = comprehensions; DJ = Django
 ignore = ["E501"]               # długość linii — Black zarządza
 
+[tool.ruff.lint.per-file-ignores]
+"klastergoz/settings/*" = ["F403", "F405"]
+
 [tool.black]
 line-length = 100
 target-version = ["py313"]

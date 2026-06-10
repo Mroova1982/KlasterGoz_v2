@@ -7,7 +7,6 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
-
 from wagtail.models import Orderable
 
 from apps.pages.forms import HoneypotFormBuilder

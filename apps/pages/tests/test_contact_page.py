@@ -3,7 +3,7 @@ from django.test import Client
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.models import Site
 
-from apps.pages.models import ContactPage, ContactFormField
+from apps.pages.models import ContactFormField, ContactPage
 
 
 @pytest.fixture
