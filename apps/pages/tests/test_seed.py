@@ -14,6 +14,12 @@ def test_seed_creates_pages_and_settings():
     assert GeneralSettings.for_site(site).email == "biuro@klastergoz.pl"
     assert list(FooterSettings.for_site(site).legal_links)  # populated
 
+    from apps.shared.models import NavigationSettings
+    nav = NavigationSettings.for_site(site)
+    assert nav.primary_menu[0].value["page"].url == "/kontakt/"
+    legal = FooterSettings.for_site(site).legal_links
+    assert legal[0].value["page"].url == "/rodo/"
+
 
 @pytest.mark.django_db
 def test_seed_is_idempotent():
