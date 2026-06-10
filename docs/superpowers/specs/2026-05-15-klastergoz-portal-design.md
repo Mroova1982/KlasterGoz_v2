@@ -681,5 +681,6 @@ Wszystkie pytania rozstrzygnięte w review 2026-06-10:
 
 - Brief designerski: `~/Downloads/klastergoz-brief-designerski.md`
 - Mockup HTML: `C:\Programer\Projekty\KlasterGoz_v2\mockup\`
-- Plan implementacji Fazy 0 (Fundament): `docs/superpowers/plans/2026-06-10-faza-0-fundament.md`
-- Plany kolejnych faz (1–6): *do utworzenia, każda faza osobnym cyklem spec → plan → implementacja*
+- Plan implementacji Fazy 0 (Fundament): `docs/superpowers/plans/2026-06-10-faza-0-fundament.md` — **zrealizowany**
+- Plan implementacji Fazy 1 (Home + filary): `docs/superpowers/plans/2026-06-10-faza-1-home-filary.md`
+- Plany faz 2–6: *do utworzenia, każda faza osobnym cyklem spec → plan → implementacja*
