@@ -7,6 +7,8 @@ from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 
+from wagtail.models import Orderable
+
 from apps.pages.forms import HoneypotFormBuilder
 from apps.shared.models import BasePage, SeoMixin
 
@@ -39,18 +41,14 @@ class ContactFormField(AbstractFormField):
     page = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="form_fields")
 
 
-class ContactPageContactCard(models.Model):
+class ContactPageContactCard(Orderable):
     """Karta z danymi kontaktowymi (biuro, sekretariat, koordynator...)."""
 
     page = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="contact_cards")
     heading = models.CharField("Nagłówek", max_length=120)
     body = RichTextField("Treść", features=["bold", "link"])
-    sort_order = models.IntegerField(default=0, blank=True)
 
     panels = [FieldPanel("heading"), FieldPanel("body")]
-
-    class Meta:
-        ordering = ["sort_order"]
 
 
 class ContactPage(SeoMixin, AbstractEmailForm):
@@ -96,3 +94,4 @@ class ContactPage(SeoMixin, AbstractEmailForm):
 
     class Meta:
         verbose_name = "Strona kontaktu"
+        verbose_name_plural = "Strony kontaktu"

@@ -11,7 +11,6 @@ class HoneypotFormBuilder(FormBuilder):
         fields = super().formfields
         fields["hp_website"] = forms.CharField(
             required=False,
-            label="Nie wypełniaj tego pola",
-            widget=forms.TextInput(attrs={"autocomplete": "off", "tabindex": "-1"}),
+            widget=forms.HiddenInput(),
         )
         return fields

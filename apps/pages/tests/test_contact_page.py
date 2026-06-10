@@ -58,6 +58,7 @@ def test_contact_form_submission_creates_record(contact_page):
     )
     assert resp.status_code == 200
     assert FormSubmission.objects.filter(page=contact_page).count() == 1
+    assert "Dziękujemy" in resp.content.decode()
 
 
 @pytest.mark.django_db
