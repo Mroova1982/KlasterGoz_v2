@@ -2,7 +2,7 @@ import pytest
 from django.test import Client
 from wagtail.models import Site
 
-from apps.home.models import HomePage, HeroSlide, HomeHeroSlide, Statistic, HomePillar, Pillar
+from apps.home.models import HeroSlide, HomeHeroSlide, HomePage, HomePillar, Pillar, Statistic
 
 
 @pytest.fixture
@@ -37,7 +37,9 @@ def test_homepage_max_count_one():
 def test_homepage_renders_at_root(root_page):
     hp = HomePage(title="Klaster GOZ", slug="home-root", pillars_heading="Trzy filary")
     root_page.add_child(instance=hp)
-    slide = HeroSlide.objects.create(eyebrow="KLASTERBOX", headline="<p>Najnowsza <em>platforma</em></p>", lead="Lead hero")
+    slide = HeroSlide.objects.create(
+        eyebrow="KLASTERBOX", headline="<p>Najnowsza <em>platforma</em></p>", lead="Lead hero"
+    )
     hp.hero_slides.add(HomeHeroSlide(slide=slide))
     pillar = Pillar.objects.create(number="01 / FILAR", title="Klaster ogólnokrajowy", lead="...")
     hp.home_pillars.add(HomePillar(pillar=pillar))

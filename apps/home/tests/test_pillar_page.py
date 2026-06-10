@@ -2,7 +2,7 @@ import pytest
 from django.test import Client
 from wagtail.models import Site
 
-from apps.home.models import PillarPage, PillarBenefit
+from apps.home.models import PillarBenefit, PillarPage
 
 
 @pytest.fixture

@@ -28,5 +28,6 @@ Admin: http://localhost:8000/admin
 - Spec: `docs/superpowers/specs/2026-05-15-klastergoz-portal-design.md` (sekcja 2.1 — fazy, 2.2 — Definition of Done)
 - Plany: `docs/superpowers/plans/`
   - Faza 0 (Fundament): `docs/superpowers/plans/2026-06-10-faza-0-fundament.md`
+  - Faza 1 (Home + filary): `docs/superpowers/plans/2026-06-10-faza-1-home-filary.md`
 - Dokumentacja aplikacji: `apps/shared/README.md`, `apps/pages/README.md`
-- Status: Faza 0 (Fundament) — ukończona.
+- Status: Faza 1 (Home + 3 filary) — ukończona.

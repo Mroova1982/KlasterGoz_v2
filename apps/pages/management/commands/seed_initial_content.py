@@ -191,7 +191,7 @@ class Command(BaseCommand):
                 )
             home.save_revision().publish()
             if not Statistic.objects.filter(group="home_strip").exists():
-                for i, (v, l) in enumerate(
+                for i, (v, lbl) in enumerate(
                     [
                         ("150+", "firm i instytucji członkowskich"),
                         ("12", "lat działalności klastra"),
@@ -199,7 +199,7 @@ class Command(BaseCommand):
                         ("240 mln zł", "pozyskanego finansowania"),
                     ]
                 ):
-                    Statistic.objects.create(value=v, label=l, group="home_strip", sort_order=i)
+                    Statistic.objects.create(value=v, label=lbl, group="home_strip", sort_order=i)
 
             # --- Settings ---
             gs = GeneralSettings.for_site(site)
