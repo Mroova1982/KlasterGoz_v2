@@ -1,4 +1,5 @@
 """Statyczne typy stron: LegalPage (dokumenty prawne) i ContactPage (formularz)."""
+
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail import blocks
@@ -57,9 +58,7 @@ class ContactPage(SeoMixin, AbstractEmailForm):
     form_builder = HoneypotFormBuilder
 
     intro = RichTextField("Wstęp nad formularzem", blank=True, features=["bold", "italic", "link"])
-    thank_you_text = RichTextField(
-        "Tekst podziękowania", blank=True, features=["bold", "link"]
-    )
+    thank_you_text = RichTextField("Tekst podziękowania", blank=True, features=["bold", "link"])
     map_embed = models.TextField(
         "Mapa (embed HTML / iframe)",
         blank=True,

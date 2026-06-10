@@ -1,4 +1,5 @@
 """Formularz ContactPage z honeypotem anti-spam."""
+
 from django import forms
 from wagtail.contrib.forms.forms import FormBuilder
 

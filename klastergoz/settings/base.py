@@ -1,4 +1,5 @@
 """Base settings shared across environments."""
+
 import os
 from pathlib import Path
 
@@ -125,7 +126,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Wagtail-specific
 WAGTAIL_SITE_NAME = "Klaster GOZ"
 WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL", "http://localhost:8000")
-WAGTAIL_I18N_ENABLED = False        # włączymy w Planie 6 (multilingual)
+WAGTAIL_I18N_ENABLED = False  # włączymy w Planie 6 (multilingual)
 WAGTAILSEARCH_BACKENDS = {
     "default": {
         "BACKEND": "wagtail.search.backends.database",

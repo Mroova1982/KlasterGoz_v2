@@ -15,6 +15,7 @@ def test_seed_creates_pages_and_settings():
     assert list(FooterSettings.for_site(site).legal_links)  # populated
 
     from apps.shared.models import NavigationSettings
+
     nav = NavigationSettings.for_site(site)
     assert nav.primary_menu[0].value["page"].url == "/kontakt/"
     legal = FooterSettings.for_site(site).legal_links

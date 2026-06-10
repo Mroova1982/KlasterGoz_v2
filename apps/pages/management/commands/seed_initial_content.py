@@ -3,6 +3,7 @@
 Uruchamiany ręcznie po wdrożeniu świeżej bazy: `./manage.py seed_initial_content`.
 NIE jest migracją danych — celowo, żeby nie zaśmiecać bazy testowej.
 """
+
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from wagtail.models import Page, Site
@@ -45,7 +46,10 @@ class Command(BaseCommand):
                         title=title,
                         slug=slug,
                         body=[
-                            {"type": "paragraph", "value": "<p>Treść do uzupełnienia w panelu administracyjnym.</p>"}
+                            {
+                                "type": "paragraph",
+                                "value": "<p>Treść do uzupełnienia w panelu administracyjnym.</p>",
+                            }
                         ],
                     )
                     root.add_child(instance=page)
@@ -65,7 +69,11 @@ class Command(BaseCommand):
                 root.add_child(instance=contact)
                 contact.save_revision().publish()
                 for i, (label, ftype) in enumerate(
-                    [("Imię i nazwisko", "singleline"), ("E-mail", "email"), ("Wiadomość", "multiline")]
+                    [
+                        ("Imię i nazwisko", "singleline"),
+                        ("E-mail", "email"),
+                        ("Wiadomość", "multiline"),
+                    ]
                 ):
                     ContactFormField.objects.create(
                         page=contact, label=label, field_type=ftype, required=True, sort_order=i
@@ -95,27 +103,39 @@ class Command(BaseCommand):
             nav = NavigationSettings.for_site(site)
             if not nav.primary_menu:
                 nav.primary_menu = [
-                    {"type": "item", "value": {
-                        "label": "Kontakt",
-                        "page": kontakt.id if kontakt else None,
-                        "url": "",
-                        "nav_key": "kontakt",
-                        "columns": [],
-                    }}
+                    {
+                        "type": "item",
+                        "value": {
+                            "label": "Kontakt",
+                            "page": kontakt.id if kontakt else None,
+                            "url": "",
+                            "nav_key": "kontakt",
+                            "columns": [],
+                        },
+                    }
                 ]
                 nav.save()
 
             footer = FooterSettings.for_site(site)
             if not footer.legal_links:
                 links = []
-                for slug, label in [("rodo", "RODO"), ("regulamin", "Regulamin"), ("cookies", "Cookies")]:
+                for slug, label in [
+                    ("rodo", "RODO"),
+                    ("regulamin", "Regulamin"),
+                    ("cookies", "Cookies"),
+                ]:
                     pg = Page.objects.filter(slug=slug).first()
-                    links.append({"type": "link", "value": {
-                        "label": label,
-                        "page": pg.id if pg else None,
-                        "url": "",
-                        "description": "",
-                    }})
+                    links.append(
+                        {
+                            "type": "link",
+                            "value": {
+                                "label": label,
+                                "page": pg.id if pg else None,
+                                "url": "",
+                                "description": "",
+                            },
+                        }
+                    )
                 footer.legal_links = links
                 footer.save()
 

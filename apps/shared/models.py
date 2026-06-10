@@ -1,4 +1,5 @@
 """Współdzielone modele: mixin SEO, bazowa strona, ustawienia globalne."""
+
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
@@ -63,16 +64,12 @@ class BasePage(SeoMixin, Page):
 class GeneralSettings(BaseSiteSetting):
     """Dane kontaktowe i tożsamość klastra (header utility bar, stopka, ContactPage)."""
 
-    organization_name = models.CharField(
-        "Nazwa organizacji", max_length=200, default="Klaster GOZ"
-    )
+    organization_name = models.CharField("Nazwa organizacji", max_length=200, default="Klaster GOZ")
     phone = models.CharField("Telefon", max_length=40, blank=True)
     email = models.EmailField("E-mail", blank=True)
     address = models.TextField("Adres", blank=True, help_text="Może być wieloliniowy.")
     nip = models.CharField("NIP", max_length=20, blank=True)
-    footer_description = models.TextField(
-        "Opis w stopce", blank=True, max_length=400
-    )
+    footer_description = models.TextField("Opis w stopce", blank=True, max_length=400)
     logo = models.ForeignKey(
         "wagtailimages.Image",
         null=True,

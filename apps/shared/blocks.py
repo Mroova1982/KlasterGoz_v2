@@ -1,4 +1,5 @@
 """Bloki StreamField dla nawigacji, stopki i portali (Site Settings)."""
+
 from wagtail import blocks
 
 

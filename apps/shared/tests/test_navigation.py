@@ -21,7 +21,9 @@ def test_linkblock_uses_external_url_when_no_page():
 
 def test_menuitemblock_url_fallback_hash():
     block = MenuItemBlock()
-    value = block.to_python({"label": "Klaster", "page": None, "url": "", "nav_key": "", "columns": []})
+    value = block.to_python(
+        {"label": "Klaster", "page": None, "url": "", "nav_key": "", "columns": []}
+    )
     assert block.get_url(value) == "#"
 
 
@@ -30,7 +32,16 @@ def test_navigation_accepts_menu_item():
     site = Site.objects.get(is_default_site=True)
     nav = NavigationSettings.for_site(site)
     nav.primary_menu = [
-        {"type": "item", "value": {"label": "Kontakt", "page": None, "url": "/kontakt/", "nav_key": "kontakt", "columns": []}}
+        {
+            "type": "item",
+            "value": {
+                "label": "Kontakt",
+                "page": None,
+                "url": "/kontakt/",
+                "nav_key": "kontakt",
+                "columns": [],
+            },
+        }
     ]
     nav.save()
     reloaded = NavigationSettings.for_site(site)
@@ -42,7 +53,14 @@ def test_portals_accepts_entry():
     site = Site.objects.get(is_default_site=True)
     p = PortalsSettings.for_site(site)
     p.portals = [
-        {"type": "portal", "value": {"label": "Strefa członka", "description": "Portal", "url": "https://portal.example/"}}
+        {
+            "type": "portal",
+            "value": {
+                "label": "Strefa członka",
+                "description": "Portal",
+                "url": "https://portal.example/",
+            },
+        }
     ]
     p.save()
     assert PortalsSettings.for_site(site).portals[0].value["url"] == "https://portal.example/"
