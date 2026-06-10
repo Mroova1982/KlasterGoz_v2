@@ -1,0 +1,85 @@
+{% load static wagtailimages_tags %}
+<header class="site-header">
+  <div class="utility">
+    <div class="utility-inner">
+      <div class="utility-left">
+        {% if settings.shared.GeneralSettings.phone %}
+        <a href="tel:{{ settings.shared.GeneralSettings.phone|cut:' ' }}" class="util-item">{{ settings.shared.GeneralSettings.phone }}</a>
+        {% endif %}
+        {% if settings.shared.GeneralSettings.email %}
+        <a href="mailto:{{ settings.shared.GeneralSettings.email }}" class="util-item">{{ settings.shared.GeneralSettings.email }}</a>
+        {% endif %}
+      </div>
+      <div class="utility-right">
+        <div class="lang-switch">
+          <button class="lang active" aria-pressed="true">PL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a href="/" class="brand">
+      {% if settings.shared.GeneralSettings.logo %}
+        {% image settings.shared.GeneralSettings.logo width-260 class="brand-logo" alt=settings.shared.GeneralSettings.organization_name %}
+      {% else %}
+        <img src="{% static 'img/logo.svg' %}" alt="{{ settings.shared.GeneralSettings.organization_name }}" class="brand-logo">
+      {% endif %}
+    </a>
+
+    <ul class="nav-list">
+      {% for item in settings.shared.NavigationSettings.primary_menu %}
+        {% with v=item.value %}
+        <li class="{% if v.columns %}has-sub{% endif %}{% if v.columns|length > 1 %} has-mega{% endif %}">
+          <a href="{% if v.page %}{{ v.page.url }}{% elif v.url %}{{ v.url }}{% else %}#{% endif %}"{% if v.nav_key %} data-nav="{{ v.nav_key }}"{% endif %}>{{ v.label }}</a>
+          {% if v.columns %}
+          <div class="dropdown {% if v.columns|length > 1 %}dropdown--mega{% else %}dropdown--simple dropdown--wide{% endif %}">
+            {% if v.columns|length > 1 %}<div class="mega-grid mega-grid--2">{% endif %}
+            {% for col in v.columns %}
+              <div class="mega-col">
+                {% if col.heading %}<span class="mega-head"><strong>{{ col.heading }}</strong></span>{% endif %}
+                <ul>
+                  {% for link in col.links %}
+                  <li><a href="{% if link.page %}{{ link.page.url }}{% elif link.url %}{{ link.url }}{% else %}#{% endif %}">
+                    <strong>{{ link.label }}</strong>{% if link.description %}<small>{{ link.description }}</small>{% endif %}
+                  </a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endfor %}
+            {% if v.columns|length > 1 %}</div>{% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endwith %}
+      {% endfor %}
+    </ul>
+
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Szukaj">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+
+      {% if settings.shared.PortalsSettings.portals %}
+      <div class="login-zone has-sub">
+        <button class="btn btn--primary login-btn">Strefa logowania
+          <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="dropdown dropdown--login">
+          <div class="login-head"><h4>Zaloguj się do platformy</h4></div>
+          <ul class="portal-list">
+            {% for portal in settings.shared.PortalsSettings.portals %}
+            <li><a href="{{ portal.value.url }}" target="_blank" rel="noopener">
+              <span class="portal-txt"><strong>{{ portal.value.label }}</strong>
+              {% if portal.value.description %}<small>{{ portal.value.description }}</small>{% endif %}</span>
+            </a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>

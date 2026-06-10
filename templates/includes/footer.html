@@ -1,0 +1,66 @@
+{% load static %}
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="/" class="brand brand--footer">
+          <img src="{% static 'img/logo-white.svg' %}" alt="{{ settings.shared.GeneralSettings.organization_name }}" class="brand-logo brand-logo--footer">
+        </a>
+        {% if settings.shared.GeneralSettings.footer_description %}
+        <p style="color: rgba(255,255,255,0.65); font-size: 14.5px; margin-top: 18px; max-width: 320px;">{{ settings.shared.GeneralSettings.footer_description }}</p>
+        {% endif %}
+        <h4 style="margin-top: 28px; margin-bottom: 8px;">{{ settings.shared.FooterSettings.newsletter_heading }}</h4>
+        <p style="font-size: 13px; color: rgba(255,255,255,0.55); margin: 0;">{{ settings.shared.FooterSettings.newsletter_subtext }}</p>
+        {# Newsletter — pełna integracja Brevo w Fazie 4. Tu placeholder bez akcji. #}
+        <form class="footer-newsletter" onsubmit="event.preventDefault();">
+          <input type="email" placeholder="twoj@email.pl" required>
+          <button type="submit">Zapisz się</button>
+        </form>
+      </div>
+
+      {% for column in settings.shared.FooterSettings.columns %}
+      <div>
+        <h4>{{ column.value.heading }}</h4>
+        <ul>
+          {% for link in column.value.links %}
+          <li><a href="{% if link.page %}{{ link.page.url }}{% elif link.url %}{{ link.url }}{% else %}#{% endif %}">{{ link.label }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+
+      <div>
+        {% if settings.shared.PortalsSettings.portals %}
+        <h4>{{ settings.shared.FooterSettings.portals_heading }}</h4>
+        <ul>
+          {% for portal in settings.shared.PortalsSettings.portals %}
+          <li><a href="{{ portal.value.url }}" target="_blank" rel="noopener">{{ portal.value.label }}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        <h4 style="margin-top: 28px;">{{ settings.shared.FooterSettings.contact_heading }}</h4>
+        <ul>
+          {% if settings.shared.GeneralSettings.address %}<li style="color: rgba(255,255,255,0.7);">{{ settings.shared.GeneralSettings.address|linebreaksbr }}</li>{% endif %}
+          {% if settings.shared.GeneralSettings.email %}<li><a href="mailto:{{ settings.shared.GeneralSettings.email }}">{{ settings.shared.GeneralSettings.email }}</a></li>{% endif %}
+          {% if settings.shared.GeneralSettings.phone %}<li><a href="tel:{{ settings.shared.GeneralSettings.phone|cut:' ' }}">{{ settings.shared.GeneralSettings.phone }}</a></li>{% endif %}
+        </ul>
+        <div style="display:flex; gap: 10px; margin-top: 22px;">
+          {% if settings.shared.SocialMediaSettings.linkedin %}<a href="{{ settings.shared.SocialMediaSettings.linkedin }}" target="_blank" rel="noopener" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);display:grid;place-items:center;font-weight:700;font-size:13px;">in</a>{% endif %}
+          {% if settings.shared.SocialMediaSettings.facebook %}<a href="{{ settings.shared.SocialMediaSettings.facebook }}" target="_blank" rel="noopener" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);display:grid;place-items:center;font-weight:700;font-size:13px;">fb</a>{% endif %}
+          {% if settings.shared.SocialMediaSettings.youtube %}<a href="{{ settings.shared.SocialMediaSettings.youtube }}" target="_blank" rel="noopener" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);display:grid;place-items:center;font-weight:700;font-size:13px;">yt</a>{% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {% now "Y" %} {{ settings.shared.GeneralSettings.organization_name }}</span>
+      {% if settings.shared.FooterSettings.legal_links %}
+      <ul>
+        {% for item in settings.shared.FooterSettings.legal_links %}
+        <li><a href="{% if item.value.page %}{{ item.value.page.url }}{% elif item.value.url %}{{ item.value.url }}{% else %}#{% endif %}">{{ item.value.label }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+</footer>

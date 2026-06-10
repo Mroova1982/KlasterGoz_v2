@@ -1,0 +1,10 @@
+{% if settings.shared.AnalyticsSettings.ga4_measurement_id %}
+<div class="cookie-banner" id="cookieBanner" hidden
+     data-ga-id="{{ settings.shared.AnalyticsSettings.ga4_measurement_id }}">
+  <p>{{ settings.shared.AnalyticsSettings.cookie_banner_text }}</p>
+  <div class="cookie-actions">
+    <button type="button" class="btn btn--primary" data-cookie="accept">Akceptuję</button>
+    <button type="button" class="btn btn--light" data-cookie="reject">Odrzucam</button>
+  </div>
+</div>
+{% endif %}

@@ -489,7 +489,7 @@ Na górze pliku rozszerz importy:
 ```python
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
 from wagtail.models import Page
 
@@ -500,7 +500,7 @@ Na końcu pliku dodaj:
 
 ```python
 @register_setting
-class GeneralSettings(BaseGenericSetting):
+class GeneralSettings(BaseSiteSetting):
     """Dane kontaktowe i tożsamość klastra (header utility bar, stopka, ContactPage)."""
 
     organization_name = models.CharField(
@@ -537,7 +537,7 @@ class GeneralSettings(BaseGenericSetting):
 
 
 @register_setting
-class SocialMediaSettings(BaseGenericSetting):
+class SocialMediaSettings(BaseSiteSetting):
     """Linki do social media (stopka)."""
 
     linkedin = models.URLField("LinkedIn", blank=True)
@@ -549,7 +549,7 @@ class SocialMediaSettings(BaseGenericSetting):
 
 
 @register_setting
-class AnalyticsSettings(BaseGenericSetting):
+class AnalyticsSettings(BaseSiteSetting):
     """Google Analytics 4 + treść bannera cookies (RODO)."""
 
     ga4_measurement_id = models.CharField(
@@ -648,7 +648,7 @@ Na końcu pliku dodaj:
 
 ```python
 @register_setting
-class NavigationSettings(BaseGenericSetting):
+class NavigationSettings(BaseSiteSetting):
     """Menu główne (header). Każda pozycja: link + opcjonalne kolumny dropdownu."""
 
     primary_menu = StreamField(
@@ -664,7 +664,7 @@ class NavigationSettings(BaseGenericSetting):
 
 
 @register_setting
-class FooterSettings(BaseGenericSetting):
+class FooterSettings(BaseSiteSetting):
     """Kolumny linków w stopce (5 kolumn wg mockupu, ale dowolna liczba)."""
 
     columns = StreamField(
@@ -695,7 +695,7 @@ class FooterSettings(BaseGenericSetting):
 
 
 @register_setting
-class PortalsSettings(BaseGenericSetting):
+class PortalsSettings(BaseSiteSetting):
     """Zewnętrzne portale w dropdownie 'Strefa logowania' + stopce."""
 
     portals = StreamField(

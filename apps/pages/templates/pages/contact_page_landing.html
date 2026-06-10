@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block body_attrs %}data-page="kontakt"{% endblock %}
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <h1 style="margin-top: 16px;">Dziękujemy.</h1>
+    {% if page.thank_you_text %}<div class="lead">{{ page.thank_you_text|richtext }}</div>
+    {% else %}<p class="lead">Skontaktujemy się w ciągu 24 godzin roboczych.</p>{% endif %}
+  </div>
+</section>
+{% endblock %}
