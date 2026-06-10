@@ -203,3 +203,130 @@ class PillarPage(BasePage):
     class Meta:
         verbose_name = "Strona filaru"
         verbose_name_plural = "Strony filarów"
+
+
+class HomeHeroSlide(Orderable):
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="hero_slides")
+    slide = models.ForeignKey("home.HeroSlide", on_delete=models.CASCADE, related_name="+")
+    panels = [FieldPanel("slide")]
+
+
+class HomePillar(Orderable):
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="home_pillars")
+    pillar = models.ForeignKey("home.Pillar", on_delete=models.CASCADE, related_name="+")
+    panels = [FieldPanel("pillar")]
+
+
+class HomeConsultStep(Orderable):
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="consult_steps")
+    text = models.CharField("Krok", max_length=200)
+    panels = [FieldPanel("text")]
+
+
+class HomeOffering(Orderable):
+    """Kafelek usługi (sekcja 'Usługi klastra'). W Fazie 2 może zostać zastąpiony auto-listą ServicePage."""
+
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="offerings")
+    tag = models.CharField("Tag", max_length=40, blank=True)
+    title = models.CharField("Tytuł", max_length=120)
+    description = models.TextField("Opis", blank=True)
+    link_label = models.CharField("Tekst linku", max_length=60, blank=True, default="Dowiedz się więcej →")
+    url = models.CharField("URL", max_length=255, blank=True)
+    panels = [FieldPanel("tag"), FieldPanel("title"), FieldPanel("description"), FieldPanel("link_label"), FieldPanel("url")]
+
+
+class HomeMemberLogo(Orderable):
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="member_logos")
+    name = models.CharField("Nazwa", max_length=80)
+    logo = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+")
+    panels = [FieldPanel("name"), FieldPanel("logo")]
+
+
+class HomeNewsTeaser(Orderable):
+    """Teaser aktualności. W Fazie 4 może zostać zastąpiony auto-listą ArticlePage."""
+
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="news_teasers")
+    category = models.CharField("Kategoria", max_length=40, blank=True)
+    reading_time = models.CharField("Czas czytania", max_length=20, blank=True)
+    date = models.CharField("Data", max_length=20, blank=True)
+    title = models.CharField("Tytuł", max_length=200)
+    excerpt = models.TextField("Zajawka", blank=True)
+    url = models.CharField("URL", max_length=255, blank=True)
+    panels = [FieldPanel("category"), FieldPanel("reading_time"), FieldPanel("date"), FieldPanel("title"), FieldPanel("excerpt"), FieldPanel("url")]
+
+
+class HomePage(BasePage):
+    """Strona główna portalu (root Site)."""
+
+    pillars_eyebrow = models.CharField(max_length=80, blank=True, default="Co robimy")
+    pillars_heading = models.CharField(max_length=200, blank=True)
+    pillars_lead = models.TextField(blank=True)
+
+    consult_eyebrow = models.CharField(max_length=80, blank=True, default="Bezpłatna konsultacja")
+    consult_heading = models.CharField(max_length=200, blank=True)
+    consult_lead = models.TextField(blank=True)
+    consult_cta_label = models.CharField(max_length=60, blank=True, default="Wyślij zgłoszenie")
+    consult_cta_url = models.CharField(max_length=255, blank=True)
+
+    services_eyebrow = models.CharField(max_length=80, blank=True, default="Usługi klastra")
+    services_heading = models.CharField(max_length=200, blank=True)
+    services_cta_label = models.CharField(max_length=60, blank=True, default="Cała oferta")
+    services_cta_url = models.CharField(max_length=255, blank=True)
+
+    members_eyebrow = models.CharField(max_length=80, blank=True, default="Zaufali nam")
+    members_heading = models.CharField(max_length=200, blank=True)
+
+    about_eyebrow = models.CharField(max_length=80, blank=True, default="O klastrze")
+    about_heading = models.CharField(max_length=200, blank=True)
+    about_lead = models.TextField(blank=True)
+    about_bullets = models.TextField("Punkty (jeden na linię)", blank=True)
+    about_cta_label = models.CharField(max_length=60, blank=True)
+    about_cta_url = models.CharField(max_length=255, blank=True)
+    about_image = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+")
+
+    news_eyebrow = models.CharField(max_length=80, blank=True, default="Aktualności")
+    news_heading = models.CharField(max_length=200, blank=True)
+    news_cta_label = models.CharField(max_length=60, blank=True, default="Wszystkie wpisy")
+    news_cta_url = models.CharField(max_length=255, blank=True)
+
+    cta_chip = models.CharField(max_length=60, blank=True, default="Krajowy Klaster Kluczowy")
+    cta_heading = models.CharField(max_length=200, blank=True)
+    cta_lead = models.TextField(blank=True)
+    cta_primary_label = models.CharField(max_length=60, blank=True)
+    cta_primary_url = models.CharField(max_length=255, blank=True)
+    cta_secondary_label = models.CharField(max_length=60, blank=True)
+    cta_secondary_url = models.CharField(max_length=255, blank=True)
+
+    content_panels = BasePage.content_panels + [
+        InlinePanel("hero_slides", label="Slajdy hero"),
+        MultiFieldPanel([FieldPanel("pillars_eyebrow"), FieldPanel("pillars_heading"), FieldPanel("pillars_lead")], heading="Sekcja: Filary — nagłówek"),
+        InlinePanel("home_pillars", label="Filary (kafelki)"),
+        MultiFieldPanel([FieldPanel("consult_eyebrow"), FieldPanel("consult_heading"), FieldPanel("consult_lead"), FieldPanel("consult_cta_label"), FieldPanel("consult_cta_url")], heading="Sekcja: Konsultacja"),
+        InlinePanel("consult_steps", label="Kroki konsultacji"),
+        MultiFieldPanel([FieldPanel("services_eyebrow"), FieldPanel("services_heading"), FieldPanel("services_cta_label"), FieldPanel("services_cta_url")], heading="Sekcja: Usługi — nagłówek"),
+        InlinePanel("offerings", label="Kafelki usług"),
+        MultiFieldPanel([FieldPanel("members_eyebrow"), FieldPanel("members_heading")], heading="Sekcja: Członkowie — nagłówek"),
+        InlinePanel("member_logos", label="Logosy członków"),
+        MultiFieldPanel([FieldPanel("about_eyebrow"), FieldPanel("about_heading"), FieldPanel("about_lead"), FieldPanel("about_bullets"), FieldPanel("about_cta_label"), FieldPanel("about_cta_url"), FieldPanel("about_image")], heading="Sekcja: O klastrze"),
+        MultiFieldPanel([FieldPanel("news_eyebrow"), FieldPanel("news_heading"), FieldPanel("news_cta_label"), FieldPanel("news_cta_url")], heading="Sekcja: Aktualności — nagłówek"),
+        InlinePanel("news_teasers", label="Teasery aktualności"),
+        MultiFieldPanel([FieldPanel("cta_chip"), FieldPanel("cta_heading"), FieldPanel("cta_lead"), FieldPanel("cta_primary_label"), FieldPanel("cta_primary_url"), FieldPanel("cta_secondary_label"), FieldPanel("cta_secondary_url")], heading="Sekcja: CTA strip"),
+    ]
+    promote_panels = BasePage.promote_panels
+    template = "home/home_page.html"
+
+    parent_page_types = ["wagtailcore.Page"]
+    max_count = 1
+
+    def about_bullet_list(self) -> list[str]:
+        return [b.strip() for b in self.about_bullets.splitlines() if b.strip()]
+
+    def get_context(self, request):
+        from apps.home.models import Statistic
+        ctx = super().get_context(request)
+        ctx["stats_strip"] = Statistic.objects.filter(group="home_strip")
+        ctx["stats_section"] = Statistic.objects.filter(group="home_section")
+        return ctx
+
+    class Meta:
+        verbose_name = "Strona główna"
