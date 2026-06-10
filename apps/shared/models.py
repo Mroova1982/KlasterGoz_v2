@@ -1,7 +1,7 @@
 """Współdzielone modele: mixin SEO, bazowa strona, ustawienia globalne."""
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
 from wagtail.models import Page
 
@@ -60,7 +60,7 @@ class BasePage(SeoMixin, Page):
 
 
 @register_setting
-class GeneralSettings(BaseGenericSetting):
+class GeneralSettings(BaseSiteSetting):
     """Dane kontaktowe i tożsamość klastra (header utility bar, stopka, ContactPage)."""
 
     organization_name = models.CharField(
@@ -97,7 +97,7 @@ class GeneralSettings(BaseGenericSetting):
 
 
 @register_setting
-class SocialMediaSettings(BaseGenericSetting):
+class SocialMediaSettings(BaseSiteSetting):
     """Linki do social media (stopka)."""
 
     linkedin = models.URLField("LinkedIn", blank=True)
@@ -109,7 +109,7 @@ class SocialMediaSettings(BaseGenericSetting):
 
 
 @register_setting
-class AnalyticsSettings(BaseGenericSetting):
+class AnalyticsSettings(BaseSiteSetting):
     """Google Analytics 4 + treść bannera cookies (RODO)."""
 
     ga4_measurement_id = models.CharField(
