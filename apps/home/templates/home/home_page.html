@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_attrs %}data-page="home"{% endblock %}
+
+{% block content %}
+{% if page.hero_slides.all %}
+<section class="hero-slider" id="heroSlider">
+  <div class="slider-track">
+    {% for item in page.hero_slides.all %}{% with s=item.slide %}
+    <article class="slide{% if forloop.first %} is-active{% endif %}" data-slide="{{ forloop.counter0 }}">
+      {% if s.image %}{% image s.image fill-1920x1080 as bg %}<div class="slide-bg" style="background-image: url('{{ bg.url }}');"></div>{% else %}<div class="slide-bg"></div>{% endif %}
+      <div class="slide-overlay"></div>
+      <div class="container slide-inner">
+        {% if s.eyebrow %}<span class="eyebrow" style="color: var(--lime-300);">{{ s.eyebrow }}</span>{% endif %}
+        <h1>{{ s.headline|richtext }}</h1>
+        {% if s.lead %}<p class="hero-lead">{{ s.lead }}</p>{% endif %}
+        <div class="hero-ctas">
+          {% if s.primary_cta_label %}<a href="{{ s.primary_cta_url|default:'#' }}" class="btn btn--accent">{{ s.primary_cta_label }} <span class="arr">→</span></a>{% endif %}
+          {% if s.secondary_cta_label %}<a href="{{ s.secondary_cta_url|default:'#' }}" class="btn btn--light">{{ s.secondary_cta_label }}</a>{% endif %}
+        </div>
+      </div>
+    </article>
+    {% endwith %}{% endfor %}
+  </div>
+  <div class="slider-nav container">
+    <div class="slider-meta">
+      <span class="slide-counter"><span id="curSlide">01</span><span class="of">/</span><span>{{ page.hero_slides.all|length|stringformat:"02d" }}</span></span>
+      <span class="slide-progress"><span class="slide-progress-bar"></span></span>
+    </div>
+    <div class="slider-controls">
+      <button class="slider-btn" data-dir="-1" aria-label="Poprzedni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <button class="slider-btn slider-btn--pause" id="pauseBtn" aria-label="Pauza"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg></button>
+      <button class="slider-btn" data-dir="1" aria-label="Następny"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+    <div class="slider-dots">
+      {% for item in page.hero_slides.all %}<button class="dot{% if forloop.first %} is-active{% endif %}" data-go="{{ forloop.counter0 }}" aria-label="Slajd {{ forloop.counter }}"></button>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if stats_strip %}
+<section class="hero-stats-strip">
+  <div class="container">
+    {% for st in stats_strip %}<div class="hsm"><strong>{{ st.value }}</strong><span>{{ st.label }}</span></div>{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if page.home_pillars.all %}
+<section class="section">
+  <div class="container">
+    <div class="pillars-head">
+      <div>{% if page.pillars_eyebrow %}<span class="eyebrow">{{ page.pillars_eyebrow }}</span>{% endif %}{% if page.pillars_heading %}<h2 style="margin-top: 14px;">{{ page.pillars_heading }}</h2>{% endif %}</div>
+      {% if page.pillars_lead %}<p class="lead muted">{{ page.pillars_lead }}</p>{% endif %}
+    </div>
+    <div class="pillars-grid">
+      {% for item in page.home_pillars.all %}{% with p=item.pillar %}
+      <a href="{% if p.link %}{{ p.link.url }}{% else %}#{% endif %}" class="pillar{% if p.is_dark %} pillar--dark{% endif %}">
+        <span class="num">{{ p.number }}</span>
+        {% if p.icon_svg %}<span class="ico">{{ p.icon_svg|safe }}</span>{% endif %}
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.lead }}</p>
+        {% if p.bullet_list %}<ul>{% for li in p.bullet_list %}<li>{{ li }}</li>{% endfor %}</ul>{% endif %}
+        {% if p.cta_label %}<span class="pill-link">{{ p.cta_label }}</span>{% endif %}
+      </a>
+      {% endwith %}{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.consult_heading %}
+<section class="section bg-green">
+  <div class="container consult">
+    <div>
+      {% if page.consult_eyebrow %}<span class="eyebrow">{{ page.consult_eyebrow }}</span>{% endif %}
+      <h2 style="margin-top: 14px;">{{ page.consult_heading }}</h2>
+      {% if page.consult_lead %}<p class="lead muted" style="max-width: 520px;">{{ page.consult_lead }}</p>{% endif %}
+      {% if page.consult_steps.all %}
+      <ul style="list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 12px;">
+        {% for step in page.consult_steps.all %}
+        <li style="display: flex; gap: 12px; align-items: center; font-size: 15px;"><span style="width: 28px; height: 28px; background: var(--green-700); color: #fff; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13px;">{{ forloop.counter }}</span>{{ step.text }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    <div class="consult-form-wrap">
+      <p class="muted">Formularz konsultacji — pełna obsługa w Fazie 2. Tymczasowo skontaktuj się przez <a href="{{ page.consult_cta_url|default:'/kontakt/' }}" style="text-decoration:underline;">stronę kontaktu</a>.</p>
+      <a href="{{ page.consult_cta_url|default:'/kontakt/' }}" class="btn btn--primary" style="margin-top:16px;">{{ page.consult_cta_label }} <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if stats_section %}
+<section class="section--tight">
+  <div class="container">
+    <div class="stats">
+      {% for st in stats_section %}<div class="stat-item"><strong>{{ st.value }}</strong><span>{{ st.label }}</span></div>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.offerings.all %}
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>{% if page.services_eyebrow %}<span class="eyebrow">{{ page.services_eyebrow }}</span>{% endif %}{% if page.services_heading %}<h2 style="margin-top: 14px;">{{ page.services_heading }}</h2>{% endif %}</div>
+      {% if page.services_cta_label %}<a href="{{ page.services_cta_url|default:'#' }}" class="btn btn--ghost">{{ page.services_cta_label }} <span class="arr">→</span></a>{% endif %}
+    </div>
+    <div class="offerings">
+      {% for o in page.offerings.all %}
+      <a href="{{ o.url|default:'#' }}" class="offering">{% if o.tag %}<span class="tag">{{ o.tag }}</span>{% endif %}<h3>{{ o.title }}</h3><p>{{ o.description }}</p>{% if o.link_label %}<span class="more">{{ o.link_label }}</span>{% endif %}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.member_logos.all %}
+<section class="section--tight">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 36px;">{% if page.members_eyebrow %}<span class="eyebrow">{{ page.members_eyebrow }}</span>{% endif %}{% if page.members_heading %}<h3 style="margin-top: 12px; font-size: 24px;">{{ page.members_heading }}</h3>{% endif %}</div>
+    <div class="logos">
+      {% for m in page.member_logos.all %}<div>{% if m.logo %}{% image m.logo height-40 alt=m.name %}{% else %}{{ m.name }}{% endif %}</div>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.about_heading %}
+<section class="section">
+  <div class="container feature feature--reverse">
+    <div class="feature-text">
+      {% if page.about_eyebrow %}<span class="eyebrow">{{ page.about_eyebrow }}</span>{% endif %}
+      <h2 style="margin-top: 14px;">{{ page.about_heading }}</h2>
+      {% if page.about_lead %}<p class="lead muted">{{ page.about_lead }}</p>{% endif %}
+      {% if page.about_bullet_list %}<ul>{% for li in page.about_bullet_list %}<li>{{ li }}</li>{% endfor %}</ul>{% endif %}
+      {% if page.about_cta_label %}<div style="display: flex; gap: 12px;"><a href="{{ page.about_cta_url|default:'#' }}" class="btn btn--primary">{{ page.about_cta_label }} <span class="arr">→</span></a></div>{% endif %}
+    </div>
+    <div class="feature-img">{% if page.about_image %}{% image page.about_image fill-800x600 %}{% else %}<span>Zdjęcie / wideo</span>{% endif %}</div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.news_teasers.all %}
+<section class="section bg-green">
+  <div class="container">
+    <div class="section-head">
+      <div>{% if page.news_eyebrow %}<span class="eyebrow">{{ page.news_eyebrow }}</span>{% endif %}{% if page.news_heading %}<h2 style="margin-top: 14px;">{{ page.news_heading }}</h2>{% endif %}</div>
+      {% if page.news_cta_label %}<a href="{{ page.news_cta_url|default:'#' }}" class="btn btn--ghost">{{ page.news_cta_label }} <span class="arr">→</span></a>{% endif %}
+    </div>
+    <div class="cards">
+      {% for n in page.news_teasers.all %}
+      <a href="{{ n.url|default:'#' }}" class="card">
+        <div class="card-img" data-color="{{ forloop.counter }}"><span>okładka</span></div>
+        <div class="card-body">
+          <div class="card-meta">{% if n.category %}<span>{{ n.category }}</span><span class="dot"></span>{% endif %}{% if n.reading_time %}<span>{{ n.reading_time }}</span><span class="dot"></span>{% endif %}{% if n.date %}<span>{{ n.date }}</span>{% endif %}</div>
+          <h3>{{ n.title }}</h3>{% if n.excerpt %}<p>{{ n.excerpt }}</p>{% endif %}<span class="read">Czytaj →</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.cta_heading %}
+<section class="section--tight">
+  <div class="container">
+    <div class="cta-strip">
+      <div>{% if page.cta_chip %}<span class="chip chip--lime">{{ page.cta_chip }}</span>{% endif %}<h2 style="margin-top: 14px;">{{ page.cta_heading }}</h2>{% if page.cta_lead %}<p>{{ page.cta_lead }}</p>{% endif %}</div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        {% if page.cta_primary_label %}<a href="{{ page.cta_primary_url|default:'#' }}" class="btn btn--accent">{{ page.cta_primary_label }} <span class="arr">→</span></a>{% endif %}
+        {% if page.cta_secondary_label %}<a href="{{ page.cta_secondary_url|default:'#' }}" class="btn btn--light">{{ page.cta_secondary_label }}</a>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}<script src="{% static 'js/hero-slider.js' %}" defer></script>{% endblock %}
