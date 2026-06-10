@@ -129,3 +129,66 @@ class AnalyticsSettings(BaseSiteSetting):
 
     class Meta:
         verbose_name = "Analytics i cookies"
+
+
+@register_setting
+class NavigationSettings(BaseSiteSetting):
+    """Menu główne (header). Każda pozycja: link + opcjonalne kolumny dropdownu."""
+
+    primary_menu = StreamField(
+        [("item", blocks.MenuItemBlock())],
+        blank=True,
+        help_text="Pozycje menu głównego, w kolejności od lewej.",
+    )
+
+    panels = [FieldPanel("primary_menu")]
+
+    class Meta:
+        verbose_name = "Nawigacja (menu główne)"
+
+
+@register_setting
+class FooterSettings(BaseSiteSetting):
+    """Kolumny linków w stopce (5 kolumn wg mockupu, ale dowolna liczba)."""
+
+    columns = StreamField(
+        [("column", blocks.FooterColumnBlock())],
+        blank=True,
+        help_text="Kolumny linków w stopce.",
+    )
+    newsletter_heading = models.CharField(
+        "Nagłówek newslettera", max_length=80, blank=True, default="Newsletter"
+    )
+    newsletter_subtext = models.CharField(
+        "Podtekst newslettera",
+        max_length=160,
+        blank=True,
+        default="Co miesiąc — bez spamu, sama treść.",
+    )
+
+    panels = [
+        FieldPanel("columns"),
+        MultiFieldPanel(
+            [FieldPanel("newsletter_heading"), FieldPanel("newsletter_subtext")],
+            heading="Newsletter (placeholder — pełna integracja w Fazie 4)",
+        ),
+    ]
+
+    class Meta:
+        verbose_name = "Stopka"
+
+
+@register_setting
+class PortalsSettings(BaseSiteSetting):
+    """Zewnętrzne portale w dropdownie 'Strefa logowania' + stopce."""
+
+    portals = StreamField(
+        [("portal", blocks.PortalLinkBlock())],
+        blank=True,
+        help_text="Portale logowania (Strefa członka, LMS Akademii, Giełda B2B, Platforma badań).",
+    )
+
+    panels = [FieldPanel("portals")]
+
+    class Meta:
+        verbose_name = "Portale logowania"
