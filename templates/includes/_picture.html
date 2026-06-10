@@ -1,0 +1,13 @@
+{% load wagtailimages_tags %}
+{% comment %}
+Responsywny obraz z renditions + WebP. Użycie:
+  {% include "includes/_picture.html" with image=page.cover alt="opis" loading="lazy" %}
+{% endcomment %}
+{% if image %}
+  {% image image width-800 format-webp as webp_img %}
+  {% image image width-800 as fallback_img %}
+  <picture>
+    <source srcset="{{ webp_img.url }}" type="image/webp">
+    <img src="{{ fallback_img.url }}" alt="{{ alt|default:'' }}" loading="{{ loading|default:'lazy' }}" width="{{ fallback_img.width }}" height="{{ fallback_img.height }}">
+  </picture>
+{% endif %}

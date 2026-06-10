@@ -1,0 +1,12 @@
+{% load static wagtailimages_tags %}
+{% comment %}Meta SEO/OG. Oczekuje obiektu `page` z metodami SeoMixin (może być None).{% endcomment %}
+<title>{% block meta_title %}{% if page %}{{ page.get_meta_title }}{% else %}{{ settings.shared.GeneralSettings.organization_name }}{% endif %}{% endblock %}</title>
+{% if page %}<meta name="description" content="{{ page.get_meta_description }}">{% endif %}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ settings.shared.GeneralSettings.organization_name }}">
+<meta property="og:title" content="{% if page %}{{ page.get_meta_title }}{% else %}{{ settings.shared.GeneralSettings.organization_name }}{% endif %}">
+{% if page and page.get_meta_description %}<meta property="og:description" content="{{ page.get_meta_description }}">{% endif %}
+{% if page %}{% with og_img=page.get_meta_image %}{% if og_img %}{% image og_img width-1200 as og_rendition %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ og_rendition.url }}">{% endif %}{% endwith %}{% endif %}
+<meta name="twitter:card" content="summary_large_image">
