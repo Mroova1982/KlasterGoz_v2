@@ -28,6 +28,7 @@ def test_handbook_renders_for_admin():
 @pytest.mark.django_db
 def test_menu_item_registered():
     from wagtail import hooks
+
     items = [fn() for fn in hooks.get_hooks("register_admin_menu_item")]
     labels = [getattr(i, "label", "") for i in items]
     assert "Przewodnik moderatora" in labels
@@ -40,5 +41,11 @@ def test_handbook_includes_all_chapters():
     c = Client()
     c.force_login(User.objects.get(username="mod2"))
     html = c.get(reverse("guide_handbook")).content.decode()
-    for heading in ["Wprowadzenie", "Strona główna", "Filary", "Strony prawne i Kontakt", "Ustawienia serwisu"]:
+    for heading in [
+        "Wprowadzenie",
+        "Strona główna",
+        "Filary",
+        "Strony prawne i Kontakt",
+        "Ustawienia serwisu",
+    ]:
         assert heading in html, f"brak rozdziału: {heading}"

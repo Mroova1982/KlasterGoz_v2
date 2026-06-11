@@ -30,4 +30,5 @@ Admin: http://localhost:8000/admin
   - Faza 0 (Fundament): `docs/superpowers/plans/2026-06-10-faza-0-fundament.md`
   - Faza 1 (Home + filary): `docs/superpowers/plans/2026-06-10-faza-1-home-filary.md`
 - Dokumentacja aplikacji: `apps/shared/README.md`, `apps/pages/README.md`
+- Przewodnik moderatora (panel Wagtail): `docs/przewodnik-moderatora/` — spec `docs/superpowers/specs/2026-06-11-przewodnik-moderatora-design.md`
 - Status: Faza 1 (Home + 3 filary) — ukończona.

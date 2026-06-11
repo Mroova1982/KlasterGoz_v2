@@ -1,4 +1,5 @@
 """Widok Przewodnika moderatora — renderuje pliki Markdown z docs/przewodnik-moderatora/."""
+
 from pathlib import Path
 
 import markdown as md

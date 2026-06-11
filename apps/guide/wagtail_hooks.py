@@ -1,4 +1,5 @@
 """Rejestracja Przewodnika moderatora w panelu Wagtail: URL + pozycja w menu głównym."""
+
 from django.urls import path, reverse_lazy
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem

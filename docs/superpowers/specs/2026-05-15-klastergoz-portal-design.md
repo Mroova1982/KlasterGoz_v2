@@ -98,6 +98,7 @@ Fazę uznajemy za zamkniętą dopiero, gdy spełnia **wszystkie** poniższe kryt
 2. **Przechodzące testy** — `pytest` zielony (modele, renderowanie kluczowych stron, formularze / importery danej fazy).
 3. **Commit do Git** — czysty, opisowy commit zamykający fazę (przy większych fazach również commity pośrednie per logiczny krok).
 4. **Dokumentacja** — zgodnie z wymaganiem niefunkcjonalnym z sekcji 1 (docstringi, README aplikacji, komentarze przy nieoczywistej logice).
+5. **Przewodnik moderatora zaktualizowany** — dla każdego nowego typu strony / sekcji / ustawienia dodano lub rozszerzono odpowiedni rozdział w `docs/przewodnik-moderatora/` (renderowany w panelu Wagtail, menu „Przewodnik moderatora").
 
 ---
 
