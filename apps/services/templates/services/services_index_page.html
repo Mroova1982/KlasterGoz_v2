@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block body_attrs %}data-page="doradztwo"{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <ul class="crumbs"><li><a href="/">Strona główna</a></li>{% if page.get_parent %}<li><a href="{% pageurl page.get_parent %}">{{ page.get_parent.title }}</a></li>{% endif %}<li>{{ page.title }}</li></ul>
+    {% if page.eyebrow %}<span class="eyebrow">{{ page.eyebrow }}</span>{% endif %}
+    <h1 style="margin-top: 16px;">{{ page.title }}</h1>
+    {% if page.intro %}<div class="lead">{{ page.intro|richtext }}</div>{% endif %}
+  </div>
+</section>
+
+{% if services %}
+<section class="section bg-green">
+  <div class="container">
+    <div class="offerings">
+      {% for s in services %}
+      <a href="{% pageurl s %}" class="offering">{% if s.tag %}<span class="tag">{{ s.tag }}</span>{% endif %}<h3>{{ s.title }}</h3>{% if s.hero_lead %}<p>{{ s.hero_lead }}</p>{% elif s.search_description %}<p>{{ s.search_description }}</p>{% endif %}<span class="more">Dowiedz się więcej →</span></a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
