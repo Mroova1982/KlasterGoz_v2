@@ -2,7 +2,7 @@ import pytest
 from wagtail.models import Site
 
 from apps.home.models import PillarPage
-from apps.services.models import ServicesIndexPage, ServicePage, ServiceBenefit
+from apps.services.models import ServiceBenefit, ServicePage, ServicesIndexPage
 
 
 @pytest.fixture
@@ -30,7 +30,11 @@ def test_index_lists_service_children(klaster):
 def test_service_hero_box_item_list(klaster):
     idx = ServicesIndexPage(title="Usługi", slug="uslugi")
     klaster.add_child(instance=idx)
-    svc = ServicePage(title="KNR Green", slug="knr-green", hero_box_items="Tekstylna\nMetalurgiczna\n\nPapiernicza")
+    svc = ServicePage(
+        title="KNR Green",
+        slug="knr-green",
+        hero_box_items="Tekstylna\nMetalurgiczna\n\nPapiernicza",
+    )
     idx.add_child(instance=svc)
     assert svc.hero_box_item_list() == ["Tekstylna", "Metalurgiczna", "Papiernicza"]
 

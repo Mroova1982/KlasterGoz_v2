@@ -1,4 +1,5 @@
 """Usługi klastra: ServicesIndexPage (katalog) + ServicePage (5 usług)."""
+
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -110,7 +111,11 @@ class ServicePage(BasePage):
             heading="Hero",
         ),
         MultiFieldPanel(
-            [FieldPanel("hero_box_chip"), FieldPanel("hero_box_heading"), FieldPanel("hero_box_items")],
+            [
+                FieldPanel("hero_box_chip"),
+                FieldPanel("hero_box_heading"),
+                FieldPanel("hero_box_items"),
+            ],
             heading="Hero — boczny box (opcjonalny)",
         ),
         FieldPanel("intro"),
