@@ -59,3 +59,21 @@ def test_seed_homepage_has_content_and_renders():
     html = resp.content.decode()
     assert "heroSlider" in html
     assert "Klaster ogólnokrajowy" in html
+
+
+@pytest.mark.django_db
+def test_seed_creates_services():
+    from wagtail.models import Page
+    call_command("seed_initial_content")
+    assert Page.objects.filter(slug="uslugi").exists()
+    for slug in ["knr-green", "pro-goz", "pro-inno", "go-green", "pro-eko"]:
+        assert Page.objects.filter(slug=slug).count() == 1, f"brak usługi {slug}"
+
+
+@pytest.mark.django_db
+def test_seed_services_idempotent():
+    from wagtail.models import Page
+    call_command("seed_initial_content")
+    call_command("seed_initial_content")
+    assert Page.objects.filter(slug="knr-green").count() == 1
+    assert Page.objects.filter(slug="uslugi").count() == 1
