@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_attrs %}data-page="doradztwo"{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container" style="display: grid; grid-template-columns: 1.3fr 0.9fr; gap: 60px; align-items: center;">
+    <div>
+      <ul class="crumbs"><li><a href="/">Strona główna</a></li>{% if page.get_parent %}<li><a href="{% pageurl page.get_parent %}">{{ page.get_parent.title }}</a></li>{% endif %}<li>{{ page.title }}</li></ul>
+      {% if page.tag %}<span class="chip chip--lime" style="margin-bottom: 16px;">{{ page.tag }}</span>{% endif %}
+      <h1>{{ page.title }}</h1>
+      {% if page.hero_lead %}<p class="lead">{{ page.hero_lead }}</p>{% endif %}
+      <div style="display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap;">
+        {% if page.primary_cta_label %}<a href="{{ page.primary_cta_url|default:'#' }}" class="btn btn--primary">{{ page.primary_cta_label }} <span class="arr">→</span></a>{% endif %}
+        {% if page.secondary_cta_label %}<a href="{{ page.secondary_cta_url|default:'#' }}" class="btn btn--ghost">{{ page.secondary_cta_label }}</a>{% endif %}
+      </div>
+    </div>
+    {% if page.hero_box_heading %}
+    <div style="background: linear-gradient(160deg, var(--green-700), var(--green-900)); color:#fff; border-radius:28px; padding:40px; aspect-ratio:1/1.1; display:flex; flex-direction:column; justify-content:space-between; box-shadow: var(--shadow-lg);">
+      <div>{% if page.hero_box_chip %}<span class="chip chip--dark">{{ page.hero_box_chip }}</span>{% endif %}<h3 style="color:#fff; margin-top:18px; font-size:28px;">{{ page.hero_box_heading }}</h3></div>
+      {% if page.hero_box_item_list %}<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:13.5px; color:rgba(255,255,255,0.85);">{% for it in page.hero_box_item_list %}<span>· {{ it }}</span>{% endfor %}</div>{% endif %}
+    </div>
+    {% elif page.hero_image %}
+    <div>{% image page.hero_image fill-560x620 %}</div>
+    {% endif %}
+  </div>
+</section>
+
+{% if page.intro %}
+<section class="section"><div class="container"><div class="article">{{ page.intro|richtext }}</div></div></section>
+{% endif %}
+
+{% if page.benefits.all %}
+<section class="section">
+  <div class="container">
+    {% if page.benefits_heading %}<div class="section-head"><div><h2>{{ page.benefits_heading }}</h2></div></div>{% endif %}
+    <div class="offerings">
+      {% for b in page.benefits.all %}
+      <div class="offering">{% if b.tag %}<span class="tag">{{ b.tag }}</span>{% endif %}<h3>{{ b.title }}</h3>{% if b.description %}<p>{{ b.description }}</p>{% endif %}</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.steps.all %}
+<section class="section bg-green">
+  <div class="container">
+    {% if page.process_heading %}<div class="section-head"><div><h2>{{ page.process_heading }}</h2></div></div>{% endif %}
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+      {% for s in page.steps.all %}
+      <div style="background:#fff; padding:28px 24px; border-radius:18px; border:1px solid var(--ink-100);">
+        <strong style="font-family: var(--font-display); font-size:32px; color: var(--green-700); display:block;">{{ s.number }}</strong>
+        <h4 style="margin:12px 0 8px;">{{ s.title }}</h4>
+        <p style="margin:0; font-size:13.5px; color: var(--ink-500);">{{ s.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.pricing %}
+<section class="section"><div class="container"><div class="article"><h2>Cennik</h2>{{ page.pricing|richtext }}</div></div></section>
+{% endif %}
+
+{% if page.faqs.all %}
+<section class="section">
+  <div class="container" style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: start;">
+    <div><span class="eyebrow">FAQ</span><h2 style="margin-top:14px;">{{ page.faq_heading }}</h2></div>
+    <div class="faq">
+      {% for f in page.faqs.all %}
+      <details{% if forloop.first %} open{% endif %}><summary>{{ f.question }}</summary>{{ f.answer|richtext }}</details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.cta_heading %}
+<section class="section--tight">
+  <div class="container">
+    <div class="cta-strip">
+      <div><h2>{{ page.cta_heading }}</h2>{% if page.cta_lead %}<p>{{ page.cta_lead }}</p>{% endif %}</div>
+      {% if page.cta_button_label %}<a href="{{ page.cta_button_url|default:'#' }}" class="btn btn--accent">{{ page.cta_button_label }} <span class="arr">→</span></a>{% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

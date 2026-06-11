@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     "apps.home",
     "apps.pages",
     "apps.guide",
+    "apps.services",
     # wagtail
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",

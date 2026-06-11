@@ -49,3 +49,13 @@ def test_handbook_includes_all_chapters():
         "Ustawienia serwisu",
     ]:
         assert heading in html, f"brak rozdziału: {heading}"
+
+
+@pytest.mark.django_db
+def test_handbook_includes_services_chapter():
+    User = get_user_model()
+    User.objects.create_superuser("mod3", "mod3@example.com", "pass12345")
+    c = Client()
+    c.force_login(User.objects.get(username="mod3"))
+    html = c.get(reverse("guide_handbook")).content.decode()
+    assert "Usługi klastra" in html

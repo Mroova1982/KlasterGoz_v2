@@ -23,6 +23,7 @@ from apps.pages.models import (
     ContactPageContactCard,
     LegalPage,
 )
+from apps.services.models import ServicePage, ServicesIndexPage
 from apps.shared.models import (
     FooterSettings,
     GeneralSettings,
@@ -144,6 +145,65 @@ class Command(BaseCommand):
                     home.add_child(instance=pp)
                     pp.save_revision().publish()
                     self.stdout.write(f"Utworzono /{slug}/")
+
+            # --- Usługi pod /klaster/uslugi ---
+            klaster_pillar = Page.objects.filter(slug="klaster").first()
+            if klaster_pillar and not Page.objects.filter(slug="uslugi").exists():
+                idx = ServicesIndexPage(
+                    title="Usługi klastra",
+                    slug="uslugi",
+                    eyebrow="Usługi klastra",
+                    intro="<p>Pełen portfel narzędzi transformacji cyrkularnej. Treść do uzupełnienia w panelu.</p>",
+                )
+                klaster_pillar.add_child(instance=idx)
+                idx.save_revision().publish()
+                services_data = [
+                    (
+                        "knr-green",
+                        "KNR Green",
+                        "Certyfikacja",
+                        "Pierwszy polski standard certyfikacji recyklingu.",
+                    ),
+                    (
+                        "pro-goz",
+                        "PRO GOZ",
+                        "Doradztwo",
+                        "Model biznesowy cyrkularny — produkty i usługi zgodne z GOZ.",
+                    ),
+                    (
+                        "pro-inno",
+                        "PRO INNO",
+                        "Innowacje",
+                        "Transformacja innowacyjna i cyfrowa — od pomysłu po wdrożenie.",
+                    ),
+                    (
+                        "go-green",
+                        "GO GREEN",
+                        "ESG · CSRD",
+                        "Ślad węglowy, ESG, sprawozdawczość zgodna z taksonomią UE.",
+                    ),
+                    (
+                        "pro-eko",
+                        "PRO EKO",
+                        "Ekoprojektowanie",
+                        "Ekoprojektowanie i minimalizacja śladu w łańcuchu dostaw.",
+                    ),
+                ]
+                for slug, title, tag, lead in services_data:
+                    svc = ServicePage(
+                        title=title,
+                        slug=slug,
+                        tag=tag,
+                        hero_lead=lead,
+                        primary_cta_label="Skontaktuj się",
+                        primary_cta_url="/kontakt/",
+                        cta_heading="Porozmawiajmy o Twojej transformacji.",
+                        cta_button_label="Skontaktuj się",
+                        cta_button_url="/kontakt/",
+                    )
+                    idx.add_child(instance=svc)
+                    svc.save_revision().publish()
+                self.stdout.write("Utworzono /klaster/uslugi/ + 5 ServicePage")
 
             # --- Treść HomePage (raz) ---
             if not home.hero_slides.exists():
