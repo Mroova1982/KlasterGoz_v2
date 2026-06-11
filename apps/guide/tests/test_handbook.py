@@ -31,3 +31,14 @@ def test_menu_item_registered():
     items = [fn() for fn in hooks.get_hooks("register_admin_menu_item")]
     labels = [getattr(i, "label", "") for i in items]
     assert "Przewodnik moderatora" in labels
+
+
+@pytest.mark.django_db
+def test_handbook_includes_all_chapters():
+    User = get_user_model()
+    User.objects.create_superuser("mod2", "mod2@example.com", "pass12345")
+    c = Client()
+    c.force_login(User.objects.get(username="mod2"))
+    html = c.get(reverse("guide_handbook")).content.decode()
+    for heading in ["Wprowadzenie", "Strona główna", "Filary", "Strony prawne i Kontakt", "Ustawienia serwisu"]:
+        assert heading in html, f"brak rozdziału: {heading}"
