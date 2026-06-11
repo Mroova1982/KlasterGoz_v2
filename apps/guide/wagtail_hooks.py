@@ -1,5 +1,5 @@
 """Rejestracja Przewodnika moderatora w panelu Wagtail: URL + pozycja w menu głównym."""
-from django.urls import path, reverse
+from django.urls import path, reverse_lazy
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 
@@ -15,7 +15,7 @@ def register_guide_url():
 def register_guide_menu_item():
     return MenuItem(
         "Przewodnik moderatora",
-        reverse("guide_handbook"),
+        reverse_lazy("guide_handbook"),
         icon_name="help",
         order=10000,
     )
