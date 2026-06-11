@@ -64,6 +64,7 @@ def test_seed_homepage_has_content_and_renders():
 @pytest.mark.django_db
 def test_seed_creates_services():
     from wagtail.models import Page
+
     call_command("seed_initial_content")
     assert Page.objects.filter(slug="uslugi").exists()
     for slug in ["knr-green", "pro-goz", "pro-inno", "go-green", "pro-eko"]:
@@ -73,6 +74,7 @@ def test_seed_creates_services():
 @pytest.mark.django_db
 def test_seed_services_idempotent():
     from wagtail.models import Page
+
     call_command("seed_initial_content")
     call_command("seed_initial_content")
     assert Page.objects.filter(slug="knr-green").count() == 1

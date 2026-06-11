@@ -3,7 +3,13 @@ from django.test import Client
 from wagtail.models import Site
 
 from apps.home.models import PillarPage
-from apps.services.models import ServicesIndexPage, ServicePage, ServiceBenefit, ServiceStep, ServiceFAQ
+from apps.services.models import (
+    ServiceBenefit,
+    ServiceFAQ,
+    ServicePage,
+    ServicesIndexPage,
+    ServiceStep,
+)
 
 
 @pytest.fixture
@@ -21,10 +27,15 @@ def test_service_page_renders(klaster):
     klaster.add_child(instance=idx)
     idx.save_revision().publish()
     svc = ServicePage(
-        title="KNR Green", slug="knr-green", tag="Certyfikacja",
+        title="KNR Green",
+        slug="knr-green",
+        tag="Certyfikacja",
         hero_lead="Standard certyfikacji recyklingu.",
-        hero_box_heading="7 branż", hero_box_items="Tekstylna\nMetalurgiczna",
-        benefits_heading="Dla kogo", process_heading="Proces", cta_heading="Gotowy?",
+        hero_box_heading="7 branż",
+        hero_box_items="Tekstylna\nMetalurgiczna",
+        benefits_heading="Dla kogo",
+        process_heading="Proces",
+        cta_heading="Gotowy?",
     )
     idx.add_child(instance=svc)
     svc.benefits.add(ServiceBenefit(tag="B2B", title="Duzi klienci wymagają recyklatu"))
