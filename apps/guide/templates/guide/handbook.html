@@ -1,0 +1,8 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Przewodnik moderatora{% endblock %}
+{% block content %}
+  {% include "wagtailadmin/shared/headers/slim_header.html" with title="Przewodnik moderatora" icon="help" %}
+  <div class="nice-padding" style="max-width: 900px;">
+    <div class="guide-content">{{ content_html|safe }}</div>
+  </div>
+{% endblock %}
