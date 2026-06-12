@@ -1,10 +1,11 @@
 """Filar Klaster: snippety (Member, TeamMember, Partner) + strony (dalej w kolejnych zadaniach)."""
 from django.db import models
 from wagtail.admin.panels import FieldPanel
-from wagtail.fields import RichTextField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
 
 from apps.shared.models import BasePage
+from apps.cluster import blocks as cluster_blocks
 
 
 @register_snippet
@@ -213,3 +214,37 @@ class PartnersPage(BasePage):
 
     class Meta:
         verbose_name = "Partnerzy"
+
+
+class AboutClusterPage(BasePage):
+    """O klastrze pod /klaster/o-klastrze — long-form (StreamField)."""
+
+    eyebrow = models.CharField(max_length=120, blank=True, default="Krajowy Klaster Kluczowy · od 2012")
+    hero_lead = models.TextField("Lead w hero", blank=True)
+    hero_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
+    )
+    body = StreamField(
+        [
+            ("text_section", cluster_blocks.TextSectionBlock()),
+            ("cards", cluster_blocks.CardsBlock()),
+            ("steps", cluster_blocks.StepsBlock()),
+        ],
+        blank=True,
+        help_text="Sekcje strony O klastrze.",
+    )
+
+    content_panels = BasePage.content_panels + [
+        FieldPanel("eyebrow"),
+        FieldPanel("hero_lead"),
+        FieldPanel("hero_image"),
+        FieldPanel("body"),
+    ]
+    promote_panels = BasePage.promote_panels
+    template = "cluster/about_cluster_page.html"
+    parent_page_types = ["home.PillarPage"]
+    subpage_types = []
+    max_count = 1
+
+    class Meta:
+        verbose_name = "O klastrze"

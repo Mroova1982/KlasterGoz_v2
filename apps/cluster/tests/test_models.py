@@ -45,3 +45,18 @@ def test_partners_groups(klaster, rf):
     ctx = page.get_context(rf.get("/"))
     labels = [g["label"] for g in ctx["groups"]]
     assert "Instytucja publiczna" in labels
+
+
+@pytest.mark.django_db
+def test_about_page_body_streamfield(klaster):
+    from apps.cluster.models import AboutClusterPage
+    page = AboutClusterPage(title="O klastrze", slug="o-klastrze", hero_lead="...")
+    page.body = [
+        {"type": "text_section", "value": {"eyebrow": "Misja", "heading": "Współpraca", "body": "<p>Tekst.</p>", "background": "none"}},
+        {"type": "steps", "value": {"heading": "Droga", "steps": [{"number": "01", "title": "Deklaracja", "text": "..."}], "background": "dark"}},
+    ]
+    klaster.add_child(instance=page)
+    page.save_revision().publish()
+    reloaded = AboutClusterPage.objects.get(slug="o-klastrze")
+    assert reloaded.body[0].block_type == "text_section"
+    assert reloaded.body[1].value["steps"][0]["title"] == "Deklaracja"
