@@ -59,3 +59,13 @@ def test_handbook_includes_services_chapter():
     c.force_login(User.objects.get(username="mod3"))
     html = c.get(reverse("guide_handbook")).content.decode()
     assert "Usługi klastra" in html
+
+
+@pytest.mark.django_db
+def test_handbook_includes_cluster_chapter():
+    User = get_user_model()
+    User.objects.create_superuser("mod4", "mod4@example.com", "pass12345")
+    c = Client()
+    c.force_login(User.objects.get(username="mod4"))
+    html = c.get(reverse("guide_handbook")).content.decode()
+    assert "o klastrze, członkowie, zespół, partnerzy" in html

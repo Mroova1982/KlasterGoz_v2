@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block body_attrs %}data-page="klaster"{% endblock %}
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <ul class="crumbs"><li><a href="/">Strona główna</a></li><li>{{ page.title }}</li></ul>
+    {% if page.eyebrow %}<span class="eyebrow">{{ page.eyebrow }}</span>{% endif %}
+    <h1 style="margin-top: 16px;">{{ page.title }}</h1>
+    {% if page.intro %}<div class="lead">{{ page.intro|richtext }}</div>{% endif %}
+  </div>
+</section>
+<section class="section--tight">
+  <div class="container">
+    <div class="tab-row">
+      <a href="{{ page.url }}" class="{% if not active_sector %}active{% endif %}">Wszyscy</a>
+      {% for value, label in sectors %}<a href="{{ page.url }}?sektor={{ value }}" class="{% if active_sector == value %}active{% endif %}">{{ label }}</a>{% endfor %}
+    </div>
+  </div>
+</section>
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="member-grid">
+      {% for m in members %}
+      <a class="member" href="{{ m.website|default:'#' }}"{% if m.website %} target="_blank" rel="noopener"{% endif %}>
+        <div class="member-logo">{% if m.logo %}{% image m.logo height-48 %}{% else %}{{ m.initials }}{% endif %}</div>
+        <small>{{ m.get_sector_display }}</small>
+        <h4>{{ m.name }}</h4>
+        {% if m.description %}<p style="margin:0; font-size:13.5px; color: var(--ink-500);">{{ m.description }}</p>{% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

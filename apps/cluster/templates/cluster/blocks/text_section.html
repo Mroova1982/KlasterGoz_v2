@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+<section class="section{% if value.background == 'green' %} bg-green{% elif value.background == 'dark' %} bg-dark{% endif %}">
+  <div class="container">
+    {% if value.eyebrow or value.heading %}<div class="section-head"><div>{% if value.eyebrow %}<span class="eyebrow">{{ value.eyebrow }}</span>{% endif %}{% if value.heading %}<h2 style="margin-top:14px;">{{ value.heading }}</h2>{% endif %}</div></div>{% endif %}
+    <div class="article">{{ value.body|richtext }}</div>
+  </div>
+</section>

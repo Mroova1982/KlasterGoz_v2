@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+{% block body_attrs %}data-page="klaster"{% endblock %}
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <ul class="crumbs"><li><a href="/">Strona główna</a></li><li>{{ page.title }}</li></ul>
+    <h1 style="margin-top: 16px;">{{ page.title }}</h1>
+    {% if page.intro %}<div class="lead">{{ page.intro|richtext }}</div>{% endif %}
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    {% for g in groups %}
+    <div class="section-head"{% if not forloop.first %} style="margin-top: 80px;"{% endif %}><div><span class="eyebrow">{{ g.label }}</span></div></div>
+    <div class="team-grid">
+      {% for p in g.people %}
+      <div class="person"><div class="person-photo">{% if p.photo %}{% image p.photo fill-160x160 %}{% else %}{{ p.initials }}{% endif %}</div><h4>{{ p.name }}</h4>{% if p.role %}<small>{{ p.role }}</small>{% endif %}</div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
