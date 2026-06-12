@@ -1,7 +1,10 @@
 """Filar Klaster: snippety (Member, TeamMember, Partner) + strony (dalej w kolejnych zadaniach)."""
 from django.db import models
 from wagtail.admin.panels import FieldPanel
+from wagtail.fields import RichTextField
 from wagtail.snippets.models import register_snippet
+
+from apps.shared.models import BasePage
 
 
 @register_snippet
@@ -127,3 +130,86 @@ class Partner(models.Model):
         ordering = ["sort_order", "name"]
         verbose_name = "Partner"
         verbose_name_plural = "Partnerzy"
+
+
+class MembersIndexPage(BasePage):
+    """Lista członków pod /klaster/czlonkowie — filtrowalna po sektorze."""
+
+    eyebrow = models.CharField(max_length=80, blank=True, default="Społeczność klastra")
+    intro = RichTextField("Wstęp", blank=True, features=["bold", "italic", "link"])
+
+    content_panels = BasePage.content_panels + [FieldPanel("eyebrow"), FieldPanel("intro")]
+    promote_panels = BasePage.promote_panels
+    template = "cluster/members_index_page.html"
+    parent_page_types = ["home.PillarPage"]
+    subpage_types = []
+    max_count = 1
+
+    def get_context(self, request):
+        from apps.cluster.models import Member
+        ctx = super().get_context(request)
+        active = request.GET.get("sektor", "")
+        members = Member.objects.all()
+        if active:
+            members = members.filter(sector=active)
+        ctx["members"] = members
+        ctx["active_sector"] = active
+        ctx["sectors"] = Member.SECTOR_CHOICES
+        return ctx
+
+    class Meta:
+        verbose_name = "Lista członków"
+
+
+class TeamPage(BasePage):
+    """Zespół pod /klaster/zespol — osoby pogrupowane (zarząd / biuro / rada)."""
+
+    intro = RichTextField("Wstęp", blank=True, features=["bold", "italic", "link"])
+
+    content_panels = BasePage.content_panels + [FieldPanel("intro")]
+    promote_panels = BasePage.promote_panels
+    template = "cluster/team_page.html"
+    parent_page_types = ["home.PillarPage"]
+    subpage_types = []
+    max_count = 1
+
+    def get_context(self, request):
+        from apps.cluster.models import TeamMember
+        ctx = super().get_context(request)
+        groups = []
+        for value, label in TeamMember.GROUP_CHOICES:
+            people = TeamMember.objects.filter(group=value)
+            if people:
+                groups.append({"label": label, "people": people})
+        ctx["groups"] = groups
+        return ctx
+
+    class Meta:
+        verbose_name = "Zespół"
+
+
+class PartnersPage(BasePage):
+    """Partnerzy pod /klaster/partnerzy — pogrupowani po typie."""
+
+    intro = RichTextField("Wstęp", blank=True, features=["bold", "italic", "link"])
+
+    content_panels = BasePage.content_panels + [FieldPanel("intro")]
+    promote_panels = BasePage.promote_panels
+    template = "cluster/partners_page.html"
+    parent_page_types = ["home.PillarPage"]
+    subpage_types = []
+    max_count = 1
+
+    def get_context(self, request):
+        from apps.cluster.models import Partner
+        ctx = super().get_context(request)
+        groups = []
+        for value, label in Partner.TYPE_CHOICES:
+            items = Partner.objects.filter(type=value)
+            if items:
+                groups.append({"label": label, "items": items})
+        ctx["groups"] = groups
+        return ctx
+
+    class Meta:
+        verbose_name = "Partnerzy"
