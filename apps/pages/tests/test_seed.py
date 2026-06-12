@@ -84,7 +84,9 @@ def test_seed_services_idempotent():
 @pytest.mark.django_db
 def test_seed_creates_cluster_pages():
     from wagtail.models import Page
+
     from apps.cluster.models import Member
+
     call_command("seed_initial_content")
     for slug in ["o-klastrze", "czlonkowie", "zespol", "partnerzy"]:
         assert Page.objects.filter(slug=slug).exists(), f"brak strony {slug}"
@@ -94,7 +96,9 @@ def test_seed_creates_cluster_pages():
 @pytest.mark.django_db
 def test_seed_cluster_idempotent():
     from wagtail.models import Page
+
     from apps.cluster.models import Member
+
     call_command("seed_initial_content")
     call_command("seed_initial_content")
     assert Page.objects.filter(slug="o-klastrze").count() == 1

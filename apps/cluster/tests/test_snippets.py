@@ -1,6 +1,6 @@
 import pytest
 
-from apps.cluster.models import Member, TeamMember, Partner
+from apps.cluster.models import Member, Partner, TeamMember
 
 
 @pytest.mark.django_db

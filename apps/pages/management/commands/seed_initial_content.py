@@ -8,6 +8,15 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from wagtail.models import Page, Site
 
+from apps.cluster.models import (
+    AboutClusterPage,
+    Member,
+    MembersIndexPage,
+    Partner,
+    PartnersPage,
+    TeamMember,
+    TeamPage,
+)
 from apps.home.models import (
     HeroSlide,
     HomeHeroSlide,
@@ -22,15 +31,6 @@ from apps.pages.models import (
     ContactPage,
     ContactPageContactCard,
     LegalPage,
-)
-from apps.cluster.models import (
-    AboutClusterPage,
-    MembersIndexPage,
-    Member,
-    Partner,
-    PartnersPage,
-    TeamMember,
-    TeamPage,
 )
 from apps.services.models import ServicePage, ServicesIndexPage
 from apps.shared.models import (

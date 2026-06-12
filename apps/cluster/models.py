@@ -1,11 +1,12 @@
 """Filar Klaster: snippety (Member, TeamMember, Partner) + strony (dalej w kolejnych zadaniach)."""
+
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
 
-from apps.shared.models import BasePage
 from apps.cluster import blocks as cluster_blocks
+from apps.shared.models import BasePage
 
 
 @register_snippet
@@ -41,17 +42,17 @@ class Member(models.Model):
         FieldPanel("is_featured"),
     ]
 
-    def initials(self) -> str:
-        parts = [w for w in self.name.replace("|", " ").split() if w]
-        return "".join(w[0] for w in parts[:2]).upper()
-
-    def __str__(self):
-        return self.name
-
     class Meta:
         ordering = ["name"]
         verbose_name = "Członek"
         verbose_name_plural = "Członkowie"
+
+    def __str__(self):
+        return self.name
+
+    def initials(self) -> str:
+        parts = [w for w in self.name.replace("|", " ").split() if w]
+        return "".join(w[0] for w in parts[:2]).upper()
 
 
 @register_snippet
@@ -85,17 +86,17 @@ class TeamMember(models.Model):
         FieldPanel("sort_order"),
     ]
 
-    def initials(self) -> str:
-        parts = [w for w in self.name.split() if w]
-        return "".join(w[0] for w in parts[:2]).upper()
-
-    def __str__(self):
-        return self.name
-
     class Meta:
         ordering = ["sort_order", "name"]
         verbose_name = "Osoba zespołu"
         verbose_name_plural = "Zespół"
+
+    def __str__(self):
+        return self.name
+
+    def initials(self) -> str:
+        parts = [w for w in self.name.split() if w]
+        return "".join(w[0] for w in parts[:2]).upper()
 
 
 @register_snippet
@@ -124,13 +125,13 @@ class Partner(models.Model):
         FieldPanel("sort_order"),
     ]
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         ordering = ["sort_order", "name"]
         verbose_name = "Partner"
         verbose_name_plural = "Partnerzy"
+
+    def __str__(self):
+        return self.name
 
 
 class MembersIndexPage(BasePage):
@@ -148,6 +149,7 @@ class MembersIndexPage(BasePage):
 
     def get_context(self, request):
         from apps.cluster.models import Member
+
         ctx = super().get_context(request)
         active = request.GET.get("sektor", "")
         members = Member.objects.all()
@@ -176,6 +178,7 @@ class TeamPage(BasePage):
 
     def get_context(self, request):
         from apps.cluster.models import TeamMember
+
         ctx = super().get_context(request)
         groups = []
         for value, label in TeamMember.GROUP_CHOICES:
@@ -203,6 +206,7 @@ class PartnersPage(BasePage):
 
     def get_context(self, request):
         from apps.cluster.models import Partner
+
         ctx = super().get_context(request)
         groups = []
         for value, label in Partner.TYPE_CHOICES:
@@ -219,7 +223,9 @@ class PartnersPage(BasePage):
 class AboutClusterPage(BasePage):
     """O klastrze pod /klaster/o-klastrze — long-form (StreamField)."""
 
-    eyebrow = models.CharField(max_length=120, blank=True, default="Krajowy Klaster Kluczowy · od 2012")
+    eyebrow = models.CharField(
+        max_length=120, blank=True, default="Krajowy Klaster Kluczowy · od 2012"
+    )
     hero_lead = models.TextField("Lead w hero", blank=True)
     hero_image = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+"

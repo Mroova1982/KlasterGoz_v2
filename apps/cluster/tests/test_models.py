@@ -1,8 +1,15 @@
 import pytest
 from wagtail.models import Site
 
+from apps.cluster.models import (
+    Member,
+    MembersIndexPage,
+    Partner,
+    PartnersPage,
+    TeamMember,
+    TeamPage,
+)
 from apps.home.models import PillarPage
-from apps.cluster.models import MembersIndexPage, TeamPage, PartnersPage, Member, TeamMember, Partner
 
 
 @pytest.fixture
@@ -50,10 +57,26 @@ def test_partners_groups(klaster, rf):
 @pytest.mark.django_db
 def test_about_page_body_streamfield(klaster):
     from apps.cluster.models import AboutClusterPage
+
     page = AboutClusterPage(title="O klastrze", slug="o-klastrze", hero_lead="...")
     page.body = [
-        {"type": "text_section", "value": {"eyebrow": "Misja", "heading": "Współpraca", "body": "<p>Tekst.</p>", "background": "none"}},
-        {"type": "steps", "value": {"heading": "Droga", "steps": [{"number": "01", "title": "Deklaracja", "text": "..."}], "background": "dark"}},
+        {
+            "type": "text_section",
+            "value": {
+                "eyebrow": "Misja",
+                "heading": "Współpraca",
+                "body": "<p>Tekst.</p>",
+                "background": "none",
+            },
+        },
+        {
+            "type": "steps",
+            "value": {
+                "heading": "Droga",
+                "steps": [{"number": "01", "title": "Deklaracja", "text": "..."}],
+                "background": "dark",
+            },
+        },
     ]
     klaster.add_child(instance=page)
     page.save_revision().publish()

@@ -1,4 +1,5 @@
 """Bloki StreamField dla AboutClusterPage (sekcje long-form 'O klastrze')."""
+
 from wagtail import blocks
 
 BACKGROUNDS = [("none", "Białe"), ("green", "Zielone"), ("dark", "Ciemne")]

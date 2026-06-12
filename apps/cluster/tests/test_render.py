@@ -2,11 +2,16 @@ import pytest
 from django.test import Client
 from wagtail.models import Site
 
-from apps.home.models import PillarPage
 from apps.cluster.models import (
-    MembersIndexPage, TeamPage, PartnersPage, AboutClusterPage,
-    Member, TeamMember, Partner,
+    AboutClusterPage,
+    Member,
+    MembersIndexPage,
+    Partner,
+    PartnersPage,
+    TeamMember,
+    TeamPage,
 )
+from apps.home.models import PillarPage
 
 
 @pytest.fixture
@@ -54,7 +59,17 @@ def test_partners_page_renders_groups(klaster):
 @pytest.mark.django_db
 def test_about_page_renders_blocks(klaster):
     page = AboutClusterPage(title="O klastrze", slug="o-klastrze", hero_lead="Lead")
-    page.body = [{"type": "text_section", "value": {"heading": "Misja klastra", "body": "<p>Tekst.</p>", "background": "green", "eyebrow": ""}}]
+    page.body = [
+        {
+            "type": "text_section",
+            "value": {
+                "heading": "Misja klastra",
+                "body": "<p>Tekst.</p>",
+                "background": "green",
+                "eyebrow": "",
+            },
+        }
+    ]
     klaster.add_child(instance=page)
     page.save_revision().publish()
     html = Client().get("/klaster/o-klastrze/").content.decode()
