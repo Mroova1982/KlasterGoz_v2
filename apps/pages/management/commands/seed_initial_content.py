@@ -23,6 +23,15 @@ from apps.pages.models import (
     ContactPageContactCard,
     LegalPage,
 )
+from apps.cluster.models import (
+    AboutClusterPage,
+    MembersIndexPage,
+    Member,
+    Partner,
+    PartnersPage,
+    TeamMember,
+    TeamPage,
+)
 from apps.services.models import ServicePage, ServicesIndexPage
 from apps.shared.models import (
     FooterSettings,
@@ -204,6 +213,84 @@ class Command(BaseCommand):
                     idx.add_child(instance=svc)
                     svc.save_revision().publish()
                 self.stdout.write("Utworzono /klaster/uslugi/ + 5 ServicePage")
+
+            # --- Strony filaru Klaster: o-klastrze / czlonkowie / zespol / partnerzy ---
+            klaster_pillar = Page.objects.filter(slug="klaster").first()
+            if klaster_pillar:
+                if not Page.objects.filter(slug="o-klastrze").exists():
+                    about = AboutClusterPage(
+                        title="O klastrze",
+                        slug="o-klastrze",
+                        hero_lead="Platforma kooperacji firm, nauki, instytucji i samorządów wokół GOZ.",
+                        body=[
+                            {
+                                "type": "text_section",
+                                "value": {
+                                    "eyebrow": "Misja",
+                                    "heading": "Tworzymy środowisko współpracy.",
+                                    "body": "<p>Treść do uzupełnienia w panelu administracyjnym.</p>",
+                                    "background": "none",
+                                },
+                            }
+                        ],
+                    )
+                    klaster_pillar.add_child(instance=about)
+                    about.save_revision().publish()
+                    self.stdout.write("Utworzono /klaster/o-klastrze/")
+                if not Page.objects.filter(slug="czlonkowie").exists():
+                    m = MembersIndexPage(
+                        title="Członkowie",
+                        slug="czlonkowie",
+                        intro="<p>150+ firm i instytucji w polskim ekosystemie GOZ.</p>",
+                    )
+                    klaster_pillar.add_child(instance=m)
+                    m.save_revision().publish()
+                    self.stdout.write("Utworzono /klaster/czlonkowie/")
+                if not Page.objects.filter(slug="zespol").exists():
+                    t = TeamPage(
+                        title="Zespół",
+                        slug="zespol",
+                        intro="<p>Koordynator, biuro i rada klastra.</p>",
+                    )
+                    klaster_pillar.add_child(instance=t)
+                    t.save_revision().publish()
+                    self.stdout.write("Utworzono /klaster/zespol/")
+                if not Page.objects.filter(slug="partnerzy").exists():
+                    pp = PartnersPage(
+                        title="Partnerzy",
+                        slug="partnerzy",
+                        intro="<p>Instytucje, uczelnie i klastry partnerskie.</p>",
+                    )
+                    klaster_pillar.add_child(instance=pp)
+                    pp.save_revision().publish()
+                    self.stdout.write("Utworzono /klaster/partnerzy/")
+
+            # przykładowe snippety (raz)
+            if not Member.objects.exists():
+                for name, slug, sector in [
+                    ("Stena Recycling", "stena-recycling", "recykling"),
+                    ("BioPaper Polska", "biopaper", "produkcja"),
+                    ("CyrkulaTech", "cyrkulatech", "technologie"),
+                ]:
+                    Member.objects.create(name=name, slug=slug, sector=sector)
+            if not TeamMember.objects.exists():
+                TeamMember.objects.create(
+                    name="dr Jan Kowalski",
+                    role="Prezes Zarządu, Koordynator",
+                    group="zarzad",
+                    sort_order=0,
+                )
+                TeamMember.objects.create(
+                    name="Anna Wójcik",
+                    role="Specjalista ds. członkostwa",
+                    group="biuro",
+                    sort_order=0,
+                )
+            if not Partner.objects.exists():
+                Partner.objects.create(name="PARP", type="instytucja", sort_order=0)
+                Partner.objects.create(
+                    name="Politechnika Warszawska", type="uczelnia", sort_order=0
+                )
 
             # --- Treść HomePage (raz) ---
             if not home.hero_slides.exists():
