@@ -1,0 +1,10 @@
+<section class="section{% if value.background == 'green' %} bg-green{% elif value.background == 'dark' %} bg-dark{% endif %}">
+  <div class="container">
+    {% if value.eyebrow or value.heading %}<div class="section-head"><div>{% if value.eyebrow %}<span class="eyebrow">{{ value.eyebrow }}</span>{% endif %}{% if value.heading %}<h2 style="margin-top:14px;">{{ value.heading }}</h2>{% endif %}</div></div>{% endif %}
+    <ol class="steps">
+      {% for s in value.steps %}
+      <li><span class="step-num">{{ s.number }}</span><h4>{{ s.title }}</h4>{% if s.text %}<p>{{ s.text }}</p>{% endif %}</li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>

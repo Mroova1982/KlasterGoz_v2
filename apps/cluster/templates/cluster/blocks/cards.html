@@ -1,0 +1,10 @@
+<section class="section{% if value.background == 'green' %} bg-green{% elif value.background == 'dark' %} bg-dark{% endif %}">
+  <div class="container">
+    {% if value.eyebrow or value.heading %}<div class="section-head"><div>{% if value.eyebrow %}<span class="eyebrow">{{ value.eyebrow }}</span>{% endif %}{% if value.heading %}<h2 style="margin-top:14px;">{{ value.heading }}</h2>{% endif %}</div></div>{% endif %}
+    <div class="policies-grid">
+      {% for c in value.cards %}
+      <div class="policy">{% if c.number %}<span class="num">{{ c.number }}</span>{% endif %}<h3>{{ c.title }}</h3>{% if c.text %}<p>{{ c.text }}</p>{% endif %}</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
